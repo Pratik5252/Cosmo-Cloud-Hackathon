@@ -25,3 +25,8 @@ Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To u
 ## Further help
 
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+
+## API Key Setup
+
+To get your google API key go to - https://aistudio.google.com/app/apikey
+Copy environment.example.ts and make a environment.ts paste there with your API key.
