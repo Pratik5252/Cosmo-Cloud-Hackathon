@@ -1,0 +1,84 @@
+/* Hero Section Styles */
+.hero {
+    background-color: #f8fafc; /* Light background */
+    padding: 4rem 0; /* Top/bottom padding */
+    text-align: center;
+}
+
+.hero-content {
+    max-width: 600px; /* Limit content width */
+    margin: 0 auto; /* Center content */
+}
+
+.hero-title {
+    font-size: 3rem; /* Large title */
+    font-weight: bold;
+    color: #334155; /* Dark title color */
+    margin-bottom: 1rem; /* Spacing below title */
+}
+
+.hero-tagline {
+    font-size: 1.25rem; /* Tagline size */
+    color: #4a5568; /* Gray tagline color */
+    line-height: 1.6; /* Line spacing */
+    margin-bottom: 2rem; /* Spacing below tagline */
+}
+
+.hero-cta {
+    background-color: #4299e1; /* Blue button */
+    color: #ffffff; /* White button text */
+    padding: 1rem 2rem; /* Button padding */
+    border: none; /* No border */
+    border-radius: 0.5rem; /* Rounded corners */
+    font-size: 1rem; /* Button text size */
+    cursor: pointer; /* Show pointer on hover */
+    transition: background-color 0.2s; /* Smooth hover effect */
+}
+
+.hero-cta:hover {
+    background-color: #3182ce; /* Darker blue on hover */
+}
+
+
+/* Navbar Styles */
+.navbar {
+    background-color: #f8fafc; /* Light background */
+    padding: 1rem 2rem; /* Padding */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+    margin-bottom: 2rem; /* Added bottom margin */ 
+}
+
+.navbar-brand {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #334155; /* Dark brand color */
+}
+
+.navbar-nav {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+}
+
+.nav-item {
+    margin-left: 2rem;
+}
+
+.nav-link {
+    text-decoration: none;
+    color: #4a5568; /* Gray link color */
+    font-weight: 500;
+    transition: color 0.2s, background-color 0.2s; /* Smooth transition for color and background */
+    padding: 0.5rem 1rem; /* Added padding for hover effect */
+    border-radius: 0.25rem; /* Added border-radius for hover effect */
+}
+
+.nav-link:hover {
+    color: #ffffff; /* White text on hover */
+    background-color: #4299e1; /* Blue background on hover */
+    cursor: pointer; /* Show pointer on hover */
+}
