@@ -15,7 +15,7 @@ export class GeminiService {
 
   async generateRoadmap(field: string): Promise<string> {
     const model = this.genAI.getGenerativeModel({
-      model: 'tunedModels/roadmap-i3r6ix7b1nsq', // Replace with your specific model ID
+      model: 'tunedModels/roadmap-i3r6ix7b1nsq',
     });
 
     const generationConfig = {
@@ -35,8 +35,9 @@ export class GeminiService {
       });
 
       // Access the text response from the result
-      const responseText = result.response.text(); // Ensure that `text()` method is available
+      console.log(result.response.text());
 
+      const responseText = JSON.parse(result.response.text()); // Ensure that `text()` method is available
       return responseText; // Return the generated text
     } catch (error) {
       console.error('Error in Gemini API call:', error);
