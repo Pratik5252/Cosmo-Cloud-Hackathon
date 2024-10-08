@@ -29,4 +29,5 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
 ## API Key Setup
 
 To get your google API key go to - https://aistudio.google.com/app/apikey
-Copy environment.example.ts and make a environment.ts paste there with your API key.
+Copy environment.example.ts and make a environment.ts paste it there with your API key.
+And also create environment.prod.ts file with same content
