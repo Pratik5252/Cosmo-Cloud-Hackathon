@@ -23,4 +23,56 @@
   - Consider adding features like profile customization, notification settings, and activity tracking to enhance the user experience.
 -->
 
-<h1>My Profile</h1>
+<div class="max-w-2xl mx-auto p-4 bg-white rounded-lg shadow-md">
+  <h2 class="text-2xl font-semibold mb-4">User Profile</h2>
+
+  <div *ngIf="userProfile">
+    <div *ngIf="!isEditing">
+      <h3 class="text-xl font-medium">{{ userProfile.name }}</h3>
+      <p class="text-gray-700">Email: {{ userProfile.email }}</p>
+
+      <h4 class="text-lg font-semibold mt-4">Study Goals</h4>
+      <div *ngFor="let goal of userProfile.studyGoals" class="mb-2">
+        <p class="text-gray-600">Subject: {{ goal.subject }}</p>
+        <p class="text-gray-600">Level: {{ goal.level }}</p>
+        <p class="text-gray-600">Duration: {{ goal.duration }}</p>
+      </div>
+
+      <h4 class="text-lg font-semibold mt-4">Career Goals</h4>
+      <div *ngFor="let career of userProfile.careerGoals" class="mb-2">
+        <p class="text-gray-600">Field: {{ career.field }}</p>
+        <p class="text-gray-600">Role: {{ career.role }}</p>
+        <p class="text-gray-600">Skills to Develop: {{ career.skillsToDevelop.join(', ') }}</p>
+      </div>
+
+      <button (click)="isEditing = true" class="mt-4 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600">Edit</button>
+    </div>
+
+    <div *ngIf="isEditing" class="mt-4">
+      <h3 class="text-xl font-medium">Edit User</h3>
+      <input [(ngModel)]="userProfile.name" placeholder="Name" class="mt-2 block w-full p-2 border border-gray-300 rounded" />
+      <input [(ngModel)]="userProfile.email" placeholder="Email" class="mt-2 block w-full p-2 border border-gray-300 rounded" />
+
+      <h4 class="text-lg font-semibold mt-4">Study Goals</h4>
+      <div *ngFor="let goal of userProfile.studyGoals; let i = index" class="mb-2">
+        <input [(ngModel)]="goal.subject" placeholder="Subject" class="mt-2 block w-full p-2 border border-gray-300 rounded" />
+        <input [(ngModel)]="goal.level" placeholder="Level" class="mt-2 block w-full p-2 border border-gray-300 rounded" />
+        <input [(ngModel)]="goal.duration" placeholder="Duration" class="mt-2 block w-full p-2 border border-gray-300 rounded" />
+        <button (click)="userProfile.studyGoals.splice(i, 1)" class="mt-2 px-2 py-1 bg-red-500 text-white rounded hover:bg-red-600">Remove</button>
+      </div>
+      <button (click)="userProfile.studyGoals.push({ subject: '', level: '', duration: '' })" class="mt-2 px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600">Add Study Goal</button>
+
+      <h4 class="text-lg font-semibold mt-4">Career Goals</h4>
+      <div *ngFor="let career of userProfile.careerGoals; let j = index" class="mb-2">
+        <input [(ngModel)]="career.field" placeholder="Field" class="mt-2 block w-full p-2 border border-gray-300 rounded" />
+        <input [(ngModel)]="career.role" placeholder="Role" class="mt-2 block w-full p-2 border border-gray-300 rounded" />
+        <input [(ngModel)]="career.skillsToDevelop" placeholder="Skills to Develop (comma separated)" class="mt-2 block w-full p-2 border border-gray-300 rounded" />
+        <button (click)="userProfile.careerGoals.splice(j, 1)" class="mt-2 px-2 py-1 bg-red-500 text-white rounded hover:bg-red-600">Remove</button>
+      </div>
+      <button (click)="userProfile.careerGoals.push({ field: '', role: '', skillsToDevelop: [] })" class="mt-2 px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600">Add Career Goal</button>
+
+      <button (click)="updateUser()" class="mt-4 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600">Save</button>
+      <button (click)="isEditing = false" class="mt-4 ml-2 px-4 py-2 bg-gray-300 rounded hover:bg-gray-400">Cancel</button>
+    </div>
+  </div>
+</div>
