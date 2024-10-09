@@ -1,26 +1,50 @@
-import { Injectable }
-    from '@angular/core';
+import { Injectable } from '@angular/core';
+import {
+  Auth,
+  GoogleAuthProvider,
+  signInWithPopup,
+  User,
+} from '@angular/fire/auth';
+import { BehaviorSubject, Observable } from 'rxjs';
 
 @Injectable({
-    providedIn: 'root'
+  providedIn: 'root',
 })
-
 export class AuthService {
+  private userSubject: BehaviorSubject<User | null> =
+    new BehaviorSubject<User | null>(null);
+  user$: Observable<User | null> = this.userSubject.asObservable();
 
-    constructor() { }
+  constructor(private auth: Auth) {
+    this.auth.onAuthStateChanged((user) => {
+      this.userSubject.next(user);
+    });
+  }
 
-    signup(): boolean {
-        // Logic to make API call for signup
-        return true;
-    }
-    
-    login(): boolean {
-        // Logic to make API call for login
-        return true;
-    }
+  // Public getter to access the current user
+  get currentUser(): User | null {
+    return this.userSubject.value;
+  }
 
-    isAuthenticated(): boolean {
-        // Modify to true or false for testing app without logging in
-        return true;
+  async signInWithGoogle(): Promise<User | null> {
+    try {
+      const result = await signInWithPopup(this.auth, new GoogleAuthProvider());
+      return result.user;
+    } catch (error) {
+      console.error('Error signing in with Google', error);
+      return null;
     }
+  }
+
+  async signOut(): Promise<void> {
+    try {
+      await this.auth.signOut();
+    } catch (error) {
+      console.error('Error signing out', error);
+    }
+  }
+
+  isAuthenticated(): boolean {
+    return this.userSubject.value !== null;
+  }
 }

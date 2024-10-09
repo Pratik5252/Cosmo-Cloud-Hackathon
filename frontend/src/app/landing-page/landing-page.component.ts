@@ -1,33 +1,43 @@
 import { Component } from '@angular/core';
 import { AuthService } from '../services/auth.service';
+import { Router } from '@angular/router';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-landing-page',
-  standalone: true,
-  imports: [],
   templateUrl: './landing-page.component.html',
-  styleUrl: './landing-page.component.css'
+  styleUrls: ['./landing-page.component.css'],
+  imports: [CommonModule],
+  standalone: true,
 })
 export class LandingPageComponent {
+  isLoggedIn: boolean = false;
 
-  constructor(private authService: AuthService) { }
+  constructor(public authService: AuthService, private router: Router) {
+    // Subscribe to the user observable to check authentication state
+    this.authService.user$.subscribe((user) => {
+      this.isLoggedIn = !!user; // Set isLoggedIn based on user presence
+    });
+  }
 
-  handleSignup() {
-    alert("HandleSignup called")
-    if (this.authService.signup()) {
-      window.location.href = '/dashboard';
+  async handleLogin() {
+    const user = await this.authService.signInWithGoogle();
+    if (user) {
+      console.log('User logged in:', user);
+      this.router.navigate(['/dashboard']); // Change to your desired route
     } else {
-      alert("Sign up failed");
+      console.error('Login failed');
     }
   }
 
-  handleLogin() {
-    alert("HandleLogin called");
-    if (this.authService.login()) {
-      window.location.href = '/dashboard';
-    } else {
-      alert("login failed");
-    }
+  async handleLogout() {
+    await this.authService.signOut();
+    console.log('User logged out');
+    this.router.navigate(['/landingpage']); // Redirect to landing page after logout
   }
 
+  async handleLoginWithDifferentAccount() {
+    await this.authService.signOut(); // Sign out first
+    await this.handleLogin(); // Then log in again
+  }
 }
