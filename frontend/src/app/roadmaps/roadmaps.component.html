@@ -1,24 +1,5 @@
-<div class="absolute left-1/2 transform -translate-x-1/2 mt-8">
-    <form (ngSubmit)="generateRoadmap()" #roadmapForm="ngForm">
-        <div class="flex border border-black/25 py-2 items-center px-4 gap-4 rounded-lg">
-            <div class="form-group">
-                <input type="text" id="inputField" [(ngModel)]="inputField" name="inputField" required
-                    class="w-[50vw] bg-white py-2 px-2 focus:outline-none" placeholder="Enter eg. Frontend , Backend" />
-            </div>
-            <button type="submit" [disabled]="loading || !roadmapForm.form.valid"
-                [ngClass]="{'opacity-80 text-white/75 cursor-not-allowed': !inputField, 'hover:bg-black/85': inputField}"
-                class="bg-black/90 text-white px-6 py-3 rounded-lg">
-                {{ loading ? 'Generating...' : 'Generate' }}
-            </button>
-        </div>
-    </form>
-
-    <!-- <div *ngIf="result" class="result">
-        <h2>API Result:</h2>
-        <p>{{ result }}</p>
-    </div> -->
-
-    <!-- <div *ngIf="loading" class="loading">
-        <p>Loading...</p>
-    </div> -->
+<div class="absolute inset-0">
+    <iframe src="https://tune-modeled.vercel.app/" 
+            class="w-full h-full border-none" 
+            title="Tune Modeled"></iframe>
 </div>
