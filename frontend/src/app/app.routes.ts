@@ -12,6 +12,6 @@ export const routes: Routes = [
   { path: 'landingpage', component: LandingPageComponent },
   { path: 'profile', component: ProfileComponent, canActivate: [AuthGuard] },
   { path: 'chat', component: ChatComponent },
-  { path: 'roadmap', component: RoadmapsComponent },
+  { path: 'roadmap', component: RoadmapsComponent, canActivate: [AuthGuard] },
   // Add more routes as needed
 ];
