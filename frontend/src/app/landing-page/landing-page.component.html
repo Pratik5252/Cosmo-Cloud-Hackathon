@@ -21,26 +21,12 @@
   - Consider using A/B testing to optimize the content and layout.
 -->
 
-<nav class="navbar">
-  <div class="navbar-brand">Elite Learning</div>
-  <ul class="navbar-nav">
-    <li class="nav-item">
-      <a class="nav-link" (click)="isLoggedIn ? handleLogout() : handleLogin()">
-        {{ isLoggedIn ? 'Logout' : 'Login' }}
-      </a>
-    </li>
-    <li class="nav-item" *ngIf="isLoggedIn">
-      <button (click)="navigateToProfile()">
-        <img [src]="authService.currentUser?.photoURL" alt="User Profile Picture" class="w-10 h-10 rounded-full" />
-      </button>
-    </li>
-  </ul>
-</nav>
+
 
 <header class="hero">
   <div class="hero-content">
     <h1 class="hero-title">Ignite Your Learning Journey</h1>
     <p class="hero-tagline">Personalized roadmaps, study buddies, and curated resources to empower your growth.</p>
-    <button class="hero-cta" (click)="!isLoggedIn ? handleLogin() : null">Get Started</button>
+    <button class="hero-cta" (click)="!isLoggedIn ? handleLogin() : navigateToRoadmaps()">Get Started</button>
   </div>
 </header>
