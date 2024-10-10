@@ -4,12 +4,13 @@ import { ProfileComponent } from './profile/profile.component';
 import { ChatComponent } from './chat/chat.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { RoadmapsComponent } from './roadmaps/roadmaps.component';
+import { AuthGuard } from './guards/auth.guard';
 
 export const routes: Routes = [
   { path: '', redirectTo: '/landingpage', pathMatch: 'full' },
   { path: 'dashboard', component: DashboardComponent },
   { path: 'landingpage', component: LandingPageComponent },
-  { path: 'profile', component: ProfileComponent },
+  { path: 'profile', component: ProfileComponent, canActivate: [AuthGuard] },
   { path: 'chat', component: ChatComponent },
   { path: 'roadmap', component: RoadmapsComponent },
   // Add more routes as needed

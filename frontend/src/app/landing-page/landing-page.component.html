@@ -30,7 +30,9 @@
       </a>
     </li>
     <li class="nav-item" *ngIf="isLoggedIn">
-      <img [src]="authService.currentUser?.photoURL" alt="User Profile Picture" class="w-10 h-10 rounded-full" />
+      <button (click)="navigateToProfile()">
+        <img [src]="authService.currentUser?.photoURL" alt="User Profile Picture" class="w-10 h-10 rounded-full" />
+      </button>
     </li>
   </ul>
 </nav>

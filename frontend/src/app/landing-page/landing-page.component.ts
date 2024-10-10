@@ -24,7 +24,7 @@ export class LandingPageComponent {
     const user = await this.authService.signInWithGoogle();
     if (user) {
       console.log('User logged in:', user);
-      this.router.navigate(['/dashboard']); // Change to your desired route
+      this.router.navigate(['/']); // Change to your desired route
     } else {
       console.error('Login failed');
     }
@@ -39,5 +39,9 @@ export class LandingPageComponent {
   async handleLoginWithDifferentAccount() {
     await this.authService.signOut(); // Sign out first
     await this.handleLogin(); // Then log in again
+  }
+
+  navigateToProfile() {
+    this.router.navigate(['/profile']);
   }
 }
