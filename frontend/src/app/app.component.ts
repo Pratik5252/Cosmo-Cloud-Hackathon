@@ -3,11 +3,12 @@ import { RouterOutlet } from '@angular/router';
 import { Router } from '@angular/router';
 import { AuthService } from './services/auth/auth.service';
 import { NavComponent } from './components/nav/nav.component';
+import { ChatComponent } from './chat/chat.component';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, NavComponent],
+  imports: [RouterOutlet, NavComponent, ChatComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
 })

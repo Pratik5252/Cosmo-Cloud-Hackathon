@@ -24,16 +24,27 @@
   - Ensure proper error handling and security measures are in place.
   - Consider adding features like message history, user preferences, and customization options to enhance the user experience.
 -->
-
-<div class="chat-container">
-  <div class="messages">
-    <div *ngFor="let message of messages"
-      [ngClass]="{'user-message': message.role === 'user', 'bot-message': message.role === 'bot'}">
-      {{ message.content }}
+<brn-popover closeDelay="100" class="absolute right-0 bottom-0 mr-8 mb-8">
+  <button brnPopoverTrigger class="py-4 px-6 flex justify-center items-center bg-zinc-900 rounded-[8px]"><ng-icon
+      name="matChatBubbleRound" class="text-white"></ng-icon></button>
+  <div hlmPopoverContent class="bg-zinc-900 w-[60vw] grid gap-4 mr-8 mb-8 rounded-xl" *brnPopoverContent="let ctx">
+    <div class="">
+      <div class="h-[40vh] px-1 mx-1 py-2 my-2 overflow-y-auto">
+        <div *ngFor="let message of messages" class="flex"
+          [class]="message.role === 'user'? 'justify-end' : 'justify-start'">
+          <div [class]="message.role === 'user' ? 'bg-zinc-700 text-white' : 'bg-zinc-300 text-gray-800'"
+            class="py-1 px-2 mb-4 rounded">
+            {{ message.content }}
+          </div>
+        </div>
+      </div>
+      <div class="flex  bg-white px-2 py-1 border rounded">
+        <input class="flex-grow px-2 py-2 focus:outline-none" [(ngModel)]="newMessage" (keyup.enter)="sendMessage()"
+          placeholder="Type a message...">
+        <button (click)="sendMessage()"
+          class="bg-zinc-900 text-white flex justify-center items-center py-2 px-4 rounded"><ng-icon
+            name="matSendRound"></ng-icon></button>
+      </div>
     </div>
   </div>
-  <div class="input-container">
-    <input [(ngModel)]="newMessage" (keyup.enter)="sendMessage()" placeholder="Type a message...">
-    <button (click)="sendMessage()">Send</button>
-  </div>
-</div>
+</brn-popover>
