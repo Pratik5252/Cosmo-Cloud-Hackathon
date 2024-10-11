@@ -24,12 +24,13 @@
   - Ensure proper error handling and security measures are in place.
   - Consider adding features like message history, user preferences, and customization options to enhance the user experience.
 -->
-<brn-popover closeDelay="100" class="absolute right-0 bottom-0 mr-8 mb-8">
-  <button brnPopoverTrigger class="py-4 px-6 flex justify-center items-center bg-zinc-900 rounded-[8px]"><ng-icon
+<brn-popover closeDelay="100" class="absolute right-0 bottom-0 mr-4 mb-4">
+  <button brnPopoverTrigger class="py-3 px-4 flex justify-center items-center bg-zinc-900 rounded-[8px]"><ng-icon
       name="matChatBubbleRound" class="text-white"></ng-icon></button>
-  <div hlmPopoverContent class="bg-zinc-900 w-[60vw] grid gap-4 mr-8 mb-8 rounded-xl" *brnPopoverContent="let ctx">
+  <div hlmPopoverContent class="bg-zinc-900 w-[50vw] grid gap-4 mr-4 mb-2 rounded-xl border-[4px] border-zinc-500"
+    *brnPopoverContent="let ctx">
     <div class="">
-      <div class="h-[40vh] px-1 mx-1 py-2 my-2 overflow-y-auto">
+      <div class="h-[60vh] px-1 mx-1 py-2 my-2 overflow-y-auto">
         <div *ngFor="let message of messages" class="flex"
           [class]="message.role === 'user'? 'justify-end' : 'justify-start'">
           <div [class]="message.role === 'user' ? 'bg-zinc-700 text-white' : 'bg-zinc-300 text-gray-800'"
