@@ -25,6 +25,15 @@
   - Consider adding features like message history, user preferences, and customization options to enhance the user experience.
 -->
 
-<h1>Chat with Gemini</h1>
-
-<p>Ask me anything about learning guidance, or just have a friendly chat!</p>
+<div class="chat-container">
+  <div class="messages">
+    <div *ngFor="let message of messages"
+      [ngClass]="{'user-message': message.role === 'user', 'bot-message': message.role === 'bot'}">
+      {{ message.content }}
+    </div>
+  </div>
+  <div class="input-container">
+    <input [(ngModel)]="newMessage" (keyup.enter)="sendMessage()" placeholder="Type a message...">
+    <button (click)="sendMessage()">Send</button>
+  </div>
+</div>
