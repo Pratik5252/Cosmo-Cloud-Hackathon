@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import axios from 'axios';
+import { from, Observable, of } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -9,6 +10,7 @@ export class UserService {
     'https://free-ap-south-1.cosmocloud.io/development/api/userpreference';
   private projectId = '66cf03ee391df6dcd462bcf0';
   private environmentId = '66cf03ee391df6dcd462bcf1';
+
   async getUser(userId: string) {
     try {
       const response = await axios.get(`${this.baseUrl}/${userId}`, {
@@ -33,6 +35,24 @@ export class UserService {
         },
       });
       console.log('Updated User Data:', response.data);
+      return response.data;
+    } catch (error) {
+      console.error('Error updating user data:', error);
+    }
+  }
+
+  async createUser(userData: any) {
+    try {
+      const response = await axios.post(`${this.baseUrl}`, userData, {
+        headers: {
+          projectId: this.projectId,
+          environmentId: this.environmentId,
+        },
+      });
+      console.log('Updated User Data:', response.data);
+      const user = response.data;
+      console.log(user);
+
       return response.data;
     } catch (error) {
       console.error('Error updating user data:', error);

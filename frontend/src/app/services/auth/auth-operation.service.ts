@@ -15,6 +15,7 @@ export class AuthOperationsService {
     const user = await this.authService.signInWithGoogle();
     if (user) {
       console.log('User logged in:', user);
+
       this.navigationService.navigateToLandingPage();
     } else {
       console.error('Login failed');

@@ -1,47 +1,50 @@
 import { Injectable } from '@angular/core';
-import { environment } from '../../../environments/environment';
 import { GoogleGenerativeAI } from '@google/generative-ai';
+import { BehaviorSubject, Observable } from 'rxjs';
+import { environment } from '../../../environments/environment';
+
+export interface ChatMessage {
+  role: 'user' | 'bot';
+  content: string;
+}
 
 @Injectable({
   providedIn: 'root',
 })
-export class GeminiService {
+export class ChatService {
   private genAI: GoogleGenerativeAI;
+  private model: any;
+  private messagesSubject: BehaviorSubject<ChatMessage[]> = new BehaviorSubject<
+    ChatMessage[]
+  >([]);
 
   constructor() {
-    const apiKey = environment.apiKey;
-    this.genAI = new GoogleGenerativeAI(apiKey);
+    this.genAI = new GoogleGenerativeAI(environment.apiKey); // Replace with your actual API key
+    this.model = this.genAI.getGenerativeModel({ model: 'gemini-pro' });
   }
 
-  async generateRoadmap(field: string): Promise<string> {
-    const model = this.genAI.getGenerativeModel({
-      model: 'tunedModels/roadmap-i3r6ix7b1nsq',
-    });
+  getMessages(): Observable<ChatMessage[]> {
+    return this.messagesSubject.asObservable();
+  }
 
-    const generationConfig = {
-      temperature: 0.5,
-      topP: 0.95,
-      topK: 64,
-      maxOutputTokens: 8192,
-      responseMimeType: 'text/plain',
-    };
-
-    const parts = [{ text: `input: ${field}` }, { text: 'output: ' }];
+  async sendMessage(message: string) {
+    const currentMessages = this.messagesSubject.value;
+    currentMessages.push({ role: 'user', content: message });
+    this.messagesSubject.next(currentMessages);
 
     try {
-      const result = await model.generateContent({
-        contents: [{ role: 'user', parts }],
-        generationConfig,
-      });
-
-      // Access the text response from the result
-      console.log(result.response.text());
-
-      const responseText = JSON.parse(result.response.text()); // Ensure that `text()` method is available
-      return responseText; // Return the generated text
+      const result = await this.model.generateContent(message);
+      const response = await result.response;
+      const botMessage = response.text();
+      currentMessages.push({ role: 'bot', content: botMessage });
+      this.messagesSubject.next(currentMessages);
     } catch (error) {
-      console.error('Error in Gemini API call:', error);
-      throw new Error('Error generating content from Gemini API'); // Rethrow for handling in component
+      console.error('Error generating response:', error);
+      currentMessages.push({
+        role: 'bot',
+        content: 'Sorry, I encountered an error. Please try again.',
+      });
+      this.messagesSubject.next(currentMessages);
     }
   }
 }
