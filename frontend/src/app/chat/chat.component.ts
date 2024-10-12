@@ -12,32 +12,12 @@ import {
   matChatBubbleRound,
   matSendRound,
 } from '@ng-icons/material-icons/round';
-import {
-  BrnPopoverCloseDirective,
-  BrnPopoverComponent,
-  BrnPopoverContentDirective,
-  BrnPopoverTriggerDirective,
-} from '@spartan-ng/ui-popover-brain';
-import {
-  HlmPopoverCloseDirective,
-  HlmPopoverContentDirective,
-} from '@spartan-ng/ui-popover-helm';
 
 @Component({
   selector: 'app-chat',
   templateUrl: './chat.component.html',
   styleUrls: ['./chat.component.css'],
-  imports: [
-    CommonModule,
-    FormsModule,
-    BrnPopoverCloseDirective,
-    BrnPopoverComponent,
-    BrnPopoverContentDirective,
-    BrnPopoverTriggerDirective,
-    HlmPopoverCloseDirective,
-    HlmPopoverContentDirective,
-    NgIconComponent,
-  ],
+  imports: [CommonModule, FormsModule, NgIconComponent],
   providers: [
     provideIcons({ matChatBubbleRound, matSendRound }),
     provideNgIconsConfig({
