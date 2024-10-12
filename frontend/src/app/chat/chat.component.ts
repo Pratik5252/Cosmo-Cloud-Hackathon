@@ -1,4 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  HostListener,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
 import { ChatService, ChatMessage } from '../services/gemini/gemini.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -27,6 +33,7 @@ import {
   standalone: true,
 })
 export class ChatComponent implements OnInit {
+  isPopoverOpen = false;
   messages: ChatMessage[] = [];
   newMessage: string = '';
 
@@ -37,7 +44,21 @@ export class ChatComponent implements OnInit {
       this.messages = messages;
     });
   }
+  @ViewChild('popover') popoverElement!: ElementRef;
+  togglePopover() {
+    this.isPopoverOpen = !this.isPopoverOpen;
+  }
 
+  @HostListener('document:click', ['$event'])
+  onClickOutside(event: MouseEvent) {
+    if (
+      this.isPopoverOpen &&
+      this.popoverElement &&
+      !this.popoverElement.nativeElement.contains(event.target)
+    ) {
+      this.isPopoverOpen = false; // Close popover when clicking outside
+    }
+  }
   sendMessage() {
     if (this.newMessage.trim()) {
       this.chatService.sendMessage(this.newMessage);
