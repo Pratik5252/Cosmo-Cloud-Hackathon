@@ -16,46 +16,47 @@ export class UserService {
 	}
 	user: User | null = null;
 
-	getUser(userId: string) {
-		axios.get(`${this.baseUrl}/${userId}`, { headers: this.headers })
+	getUser(userId: string): Promise<User | null> {
+		return axios.get(`${this.baseUrl}/${userId}`, { headers: this.headers })
 			.then((response) => {
-				console.log('User Data: ', response.data);
-				return response.data;
+				this.user = response.data;
+				console.log('User Data: ', this.user);
+				return this.user;
 			})
 			.catch((error) => {
 				console.error('Error:', error);
+				return null;
 			});
-		return null;
 	}
 
 	updateUser(userId: string, userData: User) {
-		axios.put(`${this.baseUrl}/${userId}`, userData, { headers: this.headers })
+		return axios.put(`${this.baseUrl}/${userId}`, userData, { headers: this.headers })
 			.then((response) => {
 				console.log('Updated User Data:', response.data);
 				return response.data;
 			})
 			.catch((error) => {
 				console.error('Error updating user data:', error);
+				return null;
 			})
-		return null;
 	}
 
 	createUser(userData: any) {
-		this.user = this.getUser(userData.userId);
-		if (this.user) {
-			console.log("User " + userData.userId + " already exist.");
-			return this.user;
-		}
+		// 	this.user = this.getUser(userData.userId);
+		// 	if (this.user) {
+		// 		console.log("User " + userData.userId + " already exist.");
+		// 		return this.user;
+		// 	}
 
-		console.log("Creating new user account for " + userData.userId);
-		axios.post(`${this.baseUrl}`, userData, { headers: this.headers })
-			.then((response) => {
-				console.log(response.data);
-				this.user = response.data;
-				return response.data;
-			})
-			.catch((error) => {
-				console.error("Unable to create user " + error);
-			})
+		// 	console.log("Creating new user account for " + userData.userId);
+		// 	axios.post(`${this.baseUrl}`, userData, { headers: this.headers })
+		// 		.then((response) => {
+		// 			console.log(response.data);
+		// 			this.user = response.data;
+		// 			return response.data;
+		// 		})
+		// 		.catch((error) => {
+		// 			console.error("Unable to create user " + error);
+		// 		})
 	}
 }

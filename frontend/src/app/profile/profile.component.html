@@ -1,47 +1,74 @@
 <div class="max-w-2xl mx-auto p-4 bg-white rounded-lg shadow-md">
-  <h2 class="text-2xl font-semibold mb-4">User Profile</h2>
+  <h1 class="font-semibold mb-4 text-center">Profile</h1>
 
+  <!-- Loading State -->
+  <div *ngIf="isLoading" class="text-center">
+    <p class="text-gray-500">Loading profile...</p>
+  </div>
+
+  <!-- Error State -->
+  <div *ngIf="errorMessage" class="text-center text-red-500">
+    <p>{{ errorMessage }}</p>
+  </div>
+
+  <!-- Profile content -->
   <div *ngIf="userProfile">
     <!-- View Mode -->
     <div *ngIf="!isEditing">
-      <!-- <h3>ID: {{ userProfile._id }}</h3> -->
-      <h3 class="text-xl font-medium">{{ userProfile.name }}</h3>
-      <p class="text-gray-700">Email: {{ userProfile.email }}</p>
-
-      <h4 class="text-lg font-semibold mt-4">Study Goals</h4>
-      <div *ngFor="let goal of userProfile.studyGoals" class="mb-2">
-        <p class="text-gray-600">Subject: {{ goal.subject }}</p>
-        <p class="text-gray-600">Level: {{ goal.level }}</p>
-        <p class="text-gray-600">Duration: {{ goal.duration }}</p>
-      </div>
-
-      <h4 class="text-lg font-semibold mt-4">Career Goals</h4>
-      <div *ngFor="let career of userProfile.careerGoals" class="mb-2">
-        <p class="text-gray-600">Field: {{ career.field }}</p>
-        <p class="text-gray-600">Role: {{ career.role }}</p>
-        <p class="text-gray-600">Skills to Develop: {{ career.skillsToDevelop.join(', ') }}</p>
-      </div>
-
-      <h4 class="text-lg font-semibold mt-4">Preferred Learning Methods</h4>
-      <p class="text-gray-600">{{ userProfile.preferredLearningMethods.join(', ') }}</p>
-
-      <h4 class="text-lg font-semibold mt-4">Current Skills</h4>
-      <p class="text-gray-600">{{ userProfile.currentSkills.join(', ') }}</p>
-
-      <h4 class="text-lg font-semibold mt-4">Preferred Content Types</h4>
-      <p class="text-gray-600">{{ userProfile.preferredContentTypes.join(', ') }}</p>
-
-      <h4 class="text-lg font-semibold mt-4">Location</h4>
-      <p class="text-gray-600">Country: {{ userProfile.location.country }}</p>
-      <p class="text-gray-600">City: {{ userProfile.location.city }}</p>
-
-      <h4 class="text-lg font-semibold mt-4">Time Commitment</h4>
-      <p class="text-gray-600">Weekly Hours: {{ userProfile.timeCommitment.weeklyHours }}</p>
-      <p class="text-gray-600">Preferred Days: {{ userProfile.timeCommitment.preferredDays.join(', ') }}</p>
-
-      <button (click)="isEditing = true" class="mt-4 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600">
+      <button (click)="isEditing = true" class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded inline-flex items-center" title="Edit">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="fill-current w-4 h-4 mr-2">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.121 4.879a3 3 0 00-4.243 0L3.879 10.828A3 3 0 003 12.414V18a2 2 0 002 2h5.586a3 3 0 001.414-.586l6.999-6.999a3 3 0 000-4.243l-3.586-3.586z" />
+        </svg>
         Edit
       </button>
+      <h3 class="text-xl font-medium">{{ userProfile.name || 'N/A' }}</h3>
+      <p class="text-gray-700">Email: {{ userProfile.email || 'N/A' }}</p>
+
+      <h4 class="text-lg font-semibold mt-4">Study Goals</h4>
+      <div *ngIf="userProfile.studyGoals && userProfile.studyGoals.length; else noStudyGoals">
+        <div *ngFor="let goal of userProfile.studyGoals" class="mb-2">
+          <p class="text-gray-600">Subject: {{ goal.subject || 'N/A' }}</p>
+          <p class="text-gray-600">Level: {{ goal.level || 'N/A' }}</p>
+          <p class="text-gray-600">Duration: {{ goal.duration || 'N/A' }}</p>
+        </div>
+      </div>
+      <ng-template #noStudyGoals>
+        <p class="text-gray-600">No study goals have been specified.</p>
+      </ng-template>
+
+      <h4 class="text-lg font-semibold mt-4">Career Goals</h4>
+      <div *ngIf="userProfile.careerGoals && userProfile.careerGoals.length; else noCareerGoals">
+        <div *ngFor="let career of userProfile.careerGoals" class="mb-2">
+          <p class="text-gray-600">Field: {{ career.field || 'N/A' }}</p>
+          <p class="text-gray-600">Role: {{ career.role || 'N/A' }}</p>
+          <p class="text-gray-600">Skills to Develop: {{ career.skillsToDevelop.length ? career.skillsToDevelop.join(',
+            ') : 'N/A' }}</p>
+        </div>
+      </div>
+      <ng-template #noCareerGoals>
+        <p class="text-gray-600">No career goals have been specified.</p>
+      </ng-template>
+
+      <h4 class="text-lg font-semibold mt-4">Preferred Learning Methods</h4>
+      <p class="text-gray-600">{{ userProfile.preferredLearningMethods?.length ?
+        userProfile.preferredLearningMethods.join(', ') : 'No preferred learning methods specified.' }}</p>
+
+      <h4 class="text-lg font-semibold mt-4">Current Skills</h4>
+      <p class="text-gray-600">{{ userProfile.currentSkills?.length ? userProfile.currentSkills.join(', ') : 'No current
+        skills specified.' }}</p>
+
+      <h4 class="text-lg font-semibold mt-4">Preferred Content Types</h4>
+      <p class="text-gray-600">{{ userProfile.preferredContentTypes?.length ? userProfile.preferredContentTypes.join(',
+        ') : 'No preferred content types specified.' }}</p>
+
+      <h4 class="text-lg font-semibold mt-4">Location</h4>
+      <p class="text-gray-600">Country: {{ userProfile.location?.country || 'N/A' }}</p>
+      <p class="text-gray-600">City: {{ userProfile.location?.city || 'N/A' }}</p>
+
+      <h4 class="text-lg font-semibold mt-4">Time Commitment</h4>
+      <p class="text-gray-600">Weekly Hours: {{ userProfile.timeCommitment?.weeklyHours || 'N/A' }}</p>
+      <p class="text-gray-600">Preferred Days: {{ userProfile.timeCommitment?.preferredDays?.length ?
+        userProfile.timeCommitment.preferredDays.join(', ') : 'No preferred days specified.' }}</p>
     </div>
 
     <!-- Edit Mode -->
@@ -103,8 +130,11 @@
       <h4 class="text-lg font-semibold mt-4">Time Commitment</h4>
       <input [(ngModel)]="userProfile.timeCommitment.weeklyHours" placeholder="Weekly Hours" type="number"
         class="mt-2 block w-full p-2 border border-gray-300 rounded" />
-      <input [(ngModel)]="userProfile.timeCommitment.preferredDays" placeholder="Preferred Days (comma separated)"
-        class="mt-2 block w-full p-2 border border-gray-300 rounded" />
+      <h4 class="text-lg font-semibold mt-4">Preferred Days</h4>
+      <select [(ngModel)]="userProfile.timeCommitment.preferredDays" multiple
+        class="mt-2 block w-full p-2 border border-gray-300 rounded">
+        <option *ngFor="let day of daysOfWeek" [value]="day">{{ day }}</option>
+      </select>
 
       <button (click)="updateUser()"
         class="mt-4 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600">Save</button>
