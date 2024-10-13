@@ -3,11 +3,22 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { NavigationService } from '../../services/navigation/navigation.service';
 // import { AuthOperationsService } from '../../services/auth/auth-operation.service';
-
+import {
+  NgIconComponent,
+  provideIcons,
+  provideNgIconsConfig,
+} from '@ng-icons/core';
+import { matArrowForwardIosRound } from '@ng-icons/material-icons/round';
 @Component({
   selector: 'app-nav',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, NgIconComponent],
+  providers: [
+    provideIcons({ matArrowForwardIosRound }),
+    provideNgIconsConfig({
+      size: '16px',
+    }),
+  ],
   templateUrl: './nav.component.html',
   styleUrl: './nav.component.css',
 })

@@ -1,19 +1,9 @@
 /* Hero Section Styles */
-.hero {
-  background-color: #f8fafc; /* Light background */
-  padding: 4rem 0; /* Top/bottom padding */
-  text-align: center;
-}
-
-.hero-content {
-  max-width: 600px; /* Limit content width */
-  margin: 0 auto; /* Center content */
-}
 
 .hero-title {
   font-size: 3rem; /* Large title */
   font-weight: bold;
-  color: #334155; /* Dark title color */
+
   margin-bottom: 1rem; /* Spacing below title */
 }
 
