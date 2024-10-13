@@ -1,33 +1,10 @@
-<!-- 
-  This is the Profile Component.
-  Purpose:
-  - Allows users to view, edit, and manage their profile information.
-  - Provides access to user settings and preferences.
-  - May include features for account management, security settings, and personalization.
-
-  Functionality:
-  - Displays the user's profile data, such as name, email, profile picture, etc.
-  - Enables users to edit their profile information.
-  - Provides options for changing passwords, managing security settings, and updating preferences.
-  - May include features for connecting social media accounts or other integrations.
-
-  Considerations:
-  - Ensure proper data validation and security measures for handling user data.
-  - Implement clear and concise UI elements for editing and managing profile information.
-  - Provide feedback to the user on successful updates or errors.
-  - Consider accessibility and localization for a wider audience.
-
-  Notes:
-  - This component may require integration with backend services or APIs for data persistence.
-  - Refer to relevant documentation for guidelines on user data privacy and security.
-  - Consider adding features like profile customization, notification settings, and activity tracking to enhance the user experience.
--->
-
 <div class="max-w-2xl mx-auto p-4 bg-white rounded-lg shadow-md">
   <h2 class="text-2xl font-semibold mb-4">User Profile</h2>
 
   <div *ngIf="userProfile">
+    <!-- View Mode -->
     <div *ngIf="!isEditing">
+      <!-- <h3>ID: {{ userProfile._id }}</h3> -->
       <h3 class="text-xl font-medium">{{ userProfile.name }}</h3>
       <p class="text-gray-700">Email: {{ userProfile.email }}</p>
 
@@ -45,34 +22,94 @@
         <p class="text-gray-600">Skills to Develop: {{ career.skillsToDevelop.join(', ') }}</p>
       </div>
 
-      <button (click)="isEditing = true" class="mt-4 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600">Edit</button>
+      <h4 class="text-lg font-semibold mt-4">Preferred Learning Methods</h4>
+      <p class="text-gray-600">{{ userProfile.preferredLearningMethods.join(', ') }}</p>
+
+      <h4 class="text-lg font-semibold mt-4">Current Skills</h4>
+      <p class="text-gray-600">{{ userProfile.currentSkills.join(', ') }}</p>
+
+      <h4 class="text-lg font-semibold mt-4">Preferred Content Types</h4>
+      <p class="text-gray-600">{{ userProfile.preferredContentTypes.join(', ') }}</p>
+
+      <h4 class="text-lg font-semibold mt-4">Location</h4>
+      <p class="text-gray-600">Country: {{ userProfile.location.country }}</p>
+      <p class="text-gray-600">City: {{ userProfile.location.city }}</p>
+
+      <h4 class="text-lg font-semibold mt-4">Time Commitment</h4>
+      <p class="text-gray-600">Weekly Hours: {{ userProfile.timeCommitment.weeklyHours }}</p>
+      <p class="text-gray-600">Preferred Days: {{ userProfile.timeCommitment.preferredDays.join(', ') }}</p>
+
+      <button (click)="isEditing = true" class="mt-4 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600">
+        Edit
+      </button>
     </div>
 
+    <!-- Edit Mode -->
     <div *ngIf="isEditing" class="mt-4">
       <h3 class="text-xl font-medium">Edit User</h3>
-      <input [(ngModel)]="userProfile.name" placeholder="Name" class="mt-2 block w-full p-2 border border-gray-300 rounded" />
-      <input [(ngModel)]="userProfile.email" placeholder="Email" class="mt-2 block w-full p-2 border border-gray-300 rounded" />
+      <input [(ngModel)]="userProfile.name" placeholder="Name"
+        class="mt-2 block w-full p-2 border border-gray-300 rounded" />
+      <input [(ngModel)]="userProfile.email" placeholder="Email"
+        class="mt-2 block w-full p-2 border border-gray-300 rounded" />
 
       <h4 class="text-lg font-semibold mt-4">Study Goals</h4>
       <div *ngFor="let goal of userProfile.studyGoals; let i = index" class="mb-2">
-        <input [(ngModel)]="goal.subject" placeholder="Subject" class="mt-2 block w-full p-2 border border-gray-300 rounded" />
-        <input [(ngModel)]="goal.level" placeholder="Level" class="mt-2 block w-full p-2 border border-gray-300 rounded" />
-        <input [(ngModel)]="goal.duration" placeholder="Duration" class="mt-2 block w-full p-2 border border-gray-300 rounded" />
-        <button (click)="userProfile.studyGoals.splice(i, 1)" class="mt-2 px-2 py-1 bg-red-500 text-white rounded hover:bg-red-600">Remove</button>
+        <input [(ngModel)]="goal.subject" placeholder="Subject"
+          class="mt-2 block w-full p-2 border border-gray-300 rounded" />
+        <input [(ngModel)]="goal.level" placeholder="Level"
+          class="mt-2 block w-full p-2 border border-gray-300 rounded" />
+        <input [(ngModel)]="goal.duration" placeholder="Duration"
+          class="mt-2 block w-full p-2 border border-gray-300 rounded" />
+        <button (click)="userProfile.studyGoals.splice(i, 1)"
+          class="mt-2 px-2 py-1 bg-red-500 text-white rounded hover:bg-red-600">Remove</button>
       </div>
-      <button (click)="userProfile.studyGoals.push({ subject: '', level: '', duration: '' })" class="mt-2 px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600">Add Study Goal</button>
+      <button (click)="userProfile.studyGoals.push({ subject: '', level: '', duration: '' })"
+        class="mt-2 px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600">Add Study Goal</button>
 
       <h4 class="text-lg font-semibold mt-4">Career Goals</h4>
       <div *ngFor="let career of userProfile.careerGoals; let j = index" class="mb-2">
-        <input [(ngModel)]="career.field" placeholder="Field" class="mt-2 block w-full p-2 border border-gray-300 rounded" />
-        <input [(ngModel)]="career.role" placeholder="Role" class="mt-2 block w-full p-2 border border-gray-300 rounded" />
-        <input [(ngModel)]="career.skillsToDevelop" placeholder="Skills to Develop (comma separated)" class="mt-2 block w-full p-2 border border-gray-300 rounded" />
-        <button (click)="userProfile.careerGoals.splice(j, 1)" class="mt-2 px-2 py-1 bg-red-500 text-white rounded hover:bg-red-600">Remove</button>
+        <input [(ngModel)]="career.field" placeholder="Field"
+          class="mt-2 block w-full p-2 border border-gray-300 rounded" />
+        <input [(ngModel)]="career.role" placeholder="Role"
+          class="mt-2 block w-full p-2 border border-gray-300 rounded" />
+        <input [(ngModel)]="career.skillsToDevelop" placeholder="Skills to Develop (comma separated)"
+          class="mt-2 block w-full p-2 border border-gray-300 rounded" />
+        <button (click)="userProfile.careerGoals.splice(j, 1)"
+          class="mt-2 px-2 py-1 bg-red-500 text-white rounded hover:bg-red-600">Remove</button>
       </div>
-      <button (click)="userProfile.careerGoals.push({ field: '', role: '', skillsToDevelop: [] })" class="mt-2 px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600">Add Career Goal</button>
+      <button (click)="userProfile.careerGoals.push({ field: '', role: '', skillsToDevelop: [] })"
+        class="mt-2 px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600">Add Career Goal</button>
 
-      <button (click)="updateUser()" class="mt-4 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600">Save</button>
-      <button (click)="isEditing = false" class="mt-4 ml-2 px-4 py-2 bg-gray-300 rounded hover:bg-gray-400">Cancel</button>
+      <h4 class="text-lg font-semibold mt-4">Preferred Learning Methods</h4>
+      <input [(ngModel)]="userProfile.preferredLearningMethods" placeholder="Comma-separated learning methods"
+        class="mt-2 block w-full p-2 border border-gray-300 rounded" />
+
+      <h4 class="text-lg font-semibold mt-4">Current Skills</h4>
+      <input [(ngModel)]="userProfile.currentSkills" placeholder="Comma-separated skills"
+        class="mt-2 block w-full p-2 border border-gray-300 rounded" />
+
+      <h4 class="text-lg font-semibold mt-4">Preferred Content Types</h4>
+      <select [(ngModel)]="userProfile.preferredContentTypes" multiple
+        class="mt-2 block w-full p-2 border border-gray-300 rounded">
+        <option *ngFor="let type of contentTypes" [value]="type">{{ type }}</option>
+      </select>
+
+      <h4 class="text-lg font-semibold mt-4">Location</h4>
+      <input [(ngModel)]="userProfile.location.country" placeholder="Country"
+        class="mt-2 block w-full p-2 border border-gray-300 rounded" />
+      <input [(ngModel)]="userProfile.location.city" placeholder="City"
+        class="mt-2 block w-full p-2 border border-gray-300 rounded" />
+
+      <h4 class="text-lg font-semibold mt-4">Time Commitment</h4>
+      <input [(ngModel)]="userProfile.timeCommitment.weeklyHours" placeholder="Weekly Hours" type="number"
+        class="mt-2 block w-full p-2 border border-gray-300 rounded" />
+      <input [(ngModel)]="userProfile.timeCommitment.preferredDays" placeholder="Preferred Days (comma separated)"
+        class="mt-2 block w-full p-2 border border-gray-300 rounded" />
+
+      <button (click)="updateUser()"
+        class="mt-4 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600">Save</button>
+      <button (click)="isEditing = false"
+        class="mt-4 ml-2 px-4 py-2 bg-gray-300 rounded hover:bg-gray-400">Cancel</button>
     </div>
   </div>
 </div>
