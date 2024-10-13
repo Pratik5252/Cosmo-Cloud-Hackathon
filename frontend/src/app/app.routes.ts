@@ -9,7 +9,7 @@ export const routes: Routes = [
   { path: '', redirectTo: '/landingpage', pathMatch: 'full' },
   { path: 'dashboard', component: DashboardComponent },
   { path: 'landingpage', component: LandingPageComponent },
-  { path: 'profile', component: ProfileComponent, canActivate: [AuthGuard] },
-  { path: 'roadmap', component: RoadmapsComponent, canActivate: [AuthGuard] },
+  { path: 'profile', component: ProfileComponent },
+  { path: 'roadmap', component: RoadmapsComponent },
   // Add more routes as needed
 ];

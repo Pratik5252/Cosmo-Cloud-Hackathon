@@ -9,8 +9,8 @@
         </li>
         <li class="nav-item ml-8" *ngIf="isLoggedIn">
             <button (click)="navigateToProfile()">
-                <img [src]="authService.currentUser?.photoURL" alt="User Profile Picture"
-                    class="w-10 h-10 rounded-full" />
+                <!-- [src] = "authService.currentUser?.photoURL" -->
+                <img src="image" alt="User Profile Picture" class="w-10 h-10 rounded-full" />
             </button>
         </li>
     </ul>

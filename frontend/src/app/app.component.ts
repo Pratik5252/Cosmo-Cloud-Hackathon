@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { Router } from '@angular/router';
-import { AuthService } from './services/auth/auth.service';
+// import { AuthService } from './services/auth/auth.service';
 import { NavComponent } from './components/nav/nav.component';
 import { ChatComponent } from './chat/chat.component';
 
@@ -13,7 +13,7 @@ import { ChatComponent } from './chat/chat.component';
   styleUrl: './app.component.css',
 })
 export class AppComponent {
-  constructor(private router: Router, private AuthService: AuthService) {}
+  constructor(private router: Router) {}
   title = 'frontend';
 
   ngOnInit(): void {
