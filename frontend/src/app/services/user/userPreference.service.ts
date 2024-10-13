@@ -1,61 +1,61 @@
 import { Injectable } from '@angular/core';
 import axios from 'axios';
-import { from, Observable, of } from 'rxjs';
+import { User } from '../../models/user.model';
 
 @Injectable({
-  providedIn: 'root',
+	providedIn: 'root',
 })
 export class UserService {
-  private baseUrl =
-    'https://free-ap-south-1.cosmocloud.io/development/api/userpreference';
-  private projectId = '66cf03ee391df6dcd462bcf0';
-  private environmentId = '66cf03ee391df6dcd462bcf1';
+	private baseUrl =
+		'https://free-ap-south-1.cosmocloud.io/development/api/userpreference';
+	private projectId = '66cf03ee391df6dcd462bcf0';
+	private environmentId = '66cf03ee391df6dcd462bcf1';
+	private headers = {
+		projectId: this.projectId,
+		environmentId: this.environmentId,
+	}
+	user: User | null = null;
 
-  async getUser(userId: string) {
-    try {
-      const response = await axios.get(`${this.baseUrl}/${userId}`, {
-        headers: {
-          projectId: this.projectId,
-          environmentId: this.environmentId,
-        },
-      });
-      console.log('User Data:', response.data);
-      return response.data;
-    } catch (error) {
-      console.error('Error fetching user data:', error);
-    }
-  }
+	getUser(userId: string) {
+		axios.get(`${this.baseUrl}/${userId}`, { headers: this.headers })
+			.then((response) => {
+				console.log('User Data: ', response.data);
+				return response.data;
+			})
+			.catch((error) => {
+				console.error('Error:', error);
+			});
+		return null;
+	}
 
-  async updateUser(userId: string, userData: any) {
-    try {
-      const response = await axios.put(`${this.baseUrl}/${userId}`, userData, {
-        headers: {
-          projectId: this.projectId,
-          environmentId: this.environmentId,
-        },
-      });
-      console.log('Updated User Data:', response.data);
-      return response.data;
-    } catch (error) {
-      console.error('Error updating user data:', error);
-    }
-  }
+	updateUser(userId: string, userData: User) {
+		axios.put(`${this.baseUrl}/${userId}`, userData, { headers: this.headers })
+			.then((response) => {
+				console.log('Updated User Data:', response.data);
+				return response.data;
+			})
+			.catch((error) => {
+				console.error('Error updating user data:', error);
+			})
+		return null;
+	}
 
-  async createUser(userData: any) {
-    try {
-      const response = await axios.post(`${this.baseUrl}`, userData, {
-        headers: {
-          projectId: this.projectId,
-          environmentId: this.environmentId,
-        },
-      });
-      console.log('Updated User Data:', response.data);
-      const user = response.data;
-      console.log(user);
+	createUser(userData: any) {
+		this.user = this.getUser(userData.userId);
+		if (this.user) {
+			console.log("User " + userData.userId + " already exist.");
+			return this.user;
+		}
 
-      return response.data;
-    } catch (error) {
-      console.error('Error updating user data:', error);
-    }
-  }
+		console.log("Creating new user account for " + userData.userId);
+		axios.post(`${this.baseUrl}`, userData, { headers: this.headers })
+			.then((response) => {
+				console.log(response.data);
+				this.user = response.data;
+				return response.data;
+			})
+			.catch((error) => {
+				console.error("Unable to create user " + error);
+			})
+	}
 }
