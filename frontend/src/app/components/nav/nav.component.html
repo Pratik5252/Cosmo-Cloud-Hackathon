@@ -1,19 +1,26 @@
-
-<nav class="navbar flex justify-between items-center bg-slate-50 py-4 px-8 shadow-md mb-8">
-    <div class="navbar-brand text-2xl font-bold text-slate-700"><a href="/">Elite Learning</a></div>
-    <ul class="navbar-nav flex justify-center items-center ">
-        <li class="nav-item ml-8">
-            <a class="nav-link text-gray-600 font-medium py-2 px-4 rounded-[0.25rem] hover:text-white hover:bg-[#4299e1] cursor-pointer"
-                (click)="isLoggedIn ? handleLogout() : handleLogin()">
-                {{ isLoggedIn ? 'Logout' : 'Login' }}
-            </a>
-        </li>
-        <li class="nav-item ml-8" *ngIf="isLoggedIn">
-            <button (click)="navigateToProfile()">
-                <!-- [src] = "authService.currentUser?.photoURL" -->
-                <img src="image" alt="User Profile Picture" class="w-10 h-10 rounded-full" />
-            </button>
-        </li>
-    </ul>
-</nav>
->>>>>>> 389c3636ee53aea6750a909654891b0a28c270ff
+<div class="flex justify-center items-center relative z-20">
+    <nav
+        class="navbar fixed w-[80vw] flex justify-between items-center bg-[#121212]/50 backdrop-blur-sm py-4 px-8 shadow-md mb-8 top-8 border border-gray-800 rounded-lg">
+        <div class="navbar-brand text-2xl font-bold text-primary-text">Elite Learning</div>
+        <ul class="navbar-nav flex justify-center items-center ">
+            <li class="ml-8">
+                <button
+                    class="text-primary-text border border-gray-700 font-medium py-2 px-4 rounded-md hover:border-gray-500"
+                    (click)="isLoggedIn ? handleLogout() : handleLogin()">
+                    {{ isLoggedIn ? 'Logout' : 'Login' }}
+                </button>
+            </li>
+            <li class="ml-4">
+                <button
+                    class="flex justify-center items-center bg-primary-bg text-secondary-text font-medium py-2 px-4 rounded-md">Get
+                    Started <ng-icon name="matArrowForwardIosRound" class="text-secondary-text ml-2"></ng-icon></button>
+            </li>
+            <li class="nav-item ml-8" *ngIf="isLoggedIn">
+                <button (click)="navigateToProfile()">
+                    <!-- [src] = "authService.currentUser?.photoURL" -->
+                    <img src="image" alt="User Profile Picture" class="w-10 h-10 rounded-full" />
+                </button>
+            </li>
+        </ul>
+    </nav>
+</div>
