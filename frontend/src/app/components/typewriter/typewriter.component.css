@@ -1,0 +1,8 @@
+#app {
+  padding: 20px;
+  background-color: #333; /* Dark background for better contrast */
+  border-radius: 8px; /* Rounded corners */
+  max-width: 600px; /* Limit width */
+  margin: auto; /* Center align */
+  text-align: center; /* Center text */
+}
