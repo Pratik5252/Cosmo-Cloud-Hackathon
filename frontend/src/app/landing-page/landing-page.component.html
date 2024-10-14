@@ -20,18 +20,60 @@
   - Ensure the page is visually appealing and easy to navigate.
   - Consider using A/B testing to optimize the content and layout.
 -->
+<div class=" bg-secondary-bg bg-customgradient">
+  <!-- Hero Section -->
+  <header class="text-center p-4 w-full h-full">
+    <div
+      class="absolute top-0 bottom-0 left-0 right-0 bg-[linear-gradient(to_right,#4f4f4f2e_1px,transparent_1px),linear-gradient(to_bottom,#4f4f4f2e_1px,transparent_1px)] bg-[size:24px_24px] [mask-image:radial-gradient(ellipse_50%_60%_at_50%_100%,#000_70%,transparent_110%)] z-0">
+    </div>
+    <div class=" pt-40 px-16 relative z-10 flex flex-col items-center">
+      <div class="max-w-[700px] flex flex-col items-center">
+        <p class="text-primary-text text-6xl font-medium mb-4 leading-snug tracking-normal ">Ignite Your <span
+            class="text-stone-600 bg-textgradient bg-clip-text text-transparent">Learning</span>
+          with Custom Roadmaps
+        </p>
+        <p class="text-primary-accent text-base items-center max-w-[500px]">Tailored study plans, collaborative study
+          partners, and expert
+          resources designed to help you achieve your learning
+          goals.
+        </p>
+      </div>
+      <div
+        class="max-w-[550px] w-[70vw] bg-secondary-bg border-[4px] border-gray-400 rounded-lg flex justify-between items-center py-2 px-2 mt-16 relative shadow-glow">
+        <div>
+          <app-typewriter></app-typewriter>
+        </div>
+        <button
+          class="flex justify-center items-center bg-primary-bg text-secondary-text font-medium py-2 px-2 rounded-md">Get
+          Started <ng-icon name="matArrowForwardIosRound"
+            class="text-secondary-text ml-2 self-center"></ng-icon></button>
+      </div>
+    </div>
+  </header>
 
-
-
-<header class="bg-secondary-bg bg-custom-gradient2 text-center p-4 w-full h-full z-relative">
-  <div
-    class="absolute bottom-0 left-0 right-0 top-0 bg-[linear-gradient(to_right,#4f4f4f2e_1px,transparent_1px),linear-gradient(to_bottom,#4f4f4f2e_1px,transparent_1px)] bg-[size:24px_24px] [mask-image:radial-gradient(ellipse_80%_50%_at_50%_0%,#000_70%,transparent_110%)] z-0">
+  <div class="w-full h-full p-4 pt-24 relative px-12">
+    <div
+      class="w-full bg-white rounded-[20px] lg:rounded-[24px] relative z-[1] shadow-[0px_0px_4px_1px_rgba(22,_22,_18,_0.06),_0px_0px_0px_10px_rgba(22,_22,_18,_0.02)] overflow-clip">
+      <img src="assets/images/Roadmap.png" alt="" class="w-full h-auto object-cover object-center">
+    </div>
+    <div class="absolute inset-11 border-[4px] border-white rounded-3xl lg:rounded-[28px] bottom-3 top-[92px]"></div>
+    <div
+      class="absolute inset-10  border-[4px] border-gray-200 rounded-[28px] lg:rounded-[34px] backdrop-blur-[5px] opacity-[0.32] bottom-2 top-[88px]">
+    </div>
   </div>
-  <div class="hero-content pt-40 px-16 relative z-10">
-    <h1 class="hero-title text-primary-text">Ignite Your <span class="text-zinc-600">Learning</span> Journey</h1>
-    <p class="hero-tagline">Personalized roadmaps, study buddies, and curated resources to empower your growth.</p>
-    <button class="hero-cta" (click)="!isLoggedIn ? handleLogin() : navigateToRoadmaps()">Get Started</button>
+
+  <div class=" w-full h-full pt-24 flex items-center justify-center">
+    <div class="max-w-[600px] font-thin">
+      <p class="text-primary-text text-4xl text-center bg-textgradient2 bg-clip-text text-transparent">Plan your
+        <span class="underline decoration-stone-300/50 font-normal"><i>journey</i></span>,
+        track progress, and achieve your goals faster
+        with AI-driven study <span class="underline decoration-stone-300/50 font-normal"><i>roadmaps</i></span>.
+      </p>
+    </div>
+    <div>
+      
+    </div>
   </div>
-</header>
+
+</div>
 <!-- background-image: linear-gradient(120deg, #fdfbfb 0%, #ebedee 100%); -->
-<!-- background-image: linear-gradient(to right, #434343 0%, black 100%); -->

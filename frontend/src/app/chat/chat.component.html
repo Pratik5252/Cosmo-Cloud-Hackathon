@@ -24,8 +24,7 @@
   - Ensure proper error handling and security measures are in place.
   - Consider adding features like message history, user preferences, and customization options to enhance the user experience.
 -->
-<div class="fixed flex flex-col justify-end right-0 bottom-0 mr-4 mb-4">
-
+<div class="fixed flex flex-col justify-end right-0 bottom-0 mr-4 mb-4 z-20">
   <div *ngIf="isPopoverOpen" class="bg-zinc-900 w-[50vw] grid gap-4 mb-4 rounded-xl border-[4px] border-zinc-500"
     #popover>
     <div class="p-2 py-3">
@@ -49,7 +48,7 @@
   </div>
 
   <div class="self-end">
-    <button class="py-3 px-4 flex justify-center items-center bg-zinc-900 rounded-[8px]"
-      (click)="togglePopover()"><ng-icon name="matChatBubbleRound" class="text-white"></ng-icon></button>
+    <button class="py-4 px-4 flex justify-center items-center bg-primary-bg rounded-full"
+      (click)="togglePopover()"><ng-icon name="matChatBubbleRound" class="text-secondary-text"></ng-icon></button>
   </div>
 </div>

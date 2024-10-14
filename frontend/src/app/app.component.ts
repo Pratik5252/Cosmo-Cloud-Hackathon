@@ -1,19 +1,30 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { Router } from '@angular/router';
+
 // import { AuthService } from './services/auth/auth.service';
 import { NavComponent } from './components/nav/nav.component';
 import { ChatComponent } from './chat/chat.component';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, NavComponent, ChatComponent],
+  imports: [RouterOutlet, NavComponent, ChatComponent, CommonModule],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
 })
 export class AppComponent {
-  constructor(private router: Router) {}
+  showNavbar: boolean = true;
+  constructor(private router: Router) {
+    //To hide navbar in specific route
+    this.router.events.subscribe(() => {
+      const hideNavbarOnRoutes = ['/roadmap'];
+
+      // Check if the current route is one of those
+      this.showNavbar = !hideNavbarOnRoutes.includes(this.router.url);
+    });
+  }
   title = 'frontend';
 
   ngOnInit(): void {

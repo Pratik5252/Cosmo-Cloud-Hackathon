@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, HostListener } from '@angular/core';
 // import { AuthService } from '../../services/auth/auth.service';
 import { CommonModule } from '@angular/common';
 import { NavigationService } from '../../services/navigation/navigation.service';
@@ -24,6 +24,7 @@ import { matArrowForwardIosRound } from '@ng-icons/material-icons/round';
 })
 export class NavComponent {
   isLoggedIn: boolean = false;
+  scrolled = false;
 
   constructor(
     // public authService: AuthService,
@@ -33,6 +34,16 @@ export class NavComponent {
     // this.authService.user$.subscribe((user) => {
     //   this.isLoggedIn = !!user;
     // });
+  }
+
+  @HostListener('window:scroll', [])
+  onWindowScroll() {
+    const scrollPosition =
+      window.pageYOffset ||
+      document.documentElement.scrollTop ||
+      document.body.scrollTop ||
+      0;
+    this.scrolled = scrollPosition > 50; // Trigger the change when the scroll is beyond 50px
   }
 
   async handleLogin() {

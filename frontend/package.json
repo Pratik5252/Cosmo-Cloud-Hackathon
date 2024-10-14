@@ -33,7 +33,9 @@
     "framer-motion": "^11.11.8",
     "mini-svg-data-uri": "^1.4.4",
     "rxjs": "~7.8.0",
+    "t-writer.js": "^1.0.4",
     "tslib": "^2.3.0",
+    "typewriter-effect": "^2.21.0",
     "zone.js": "~0.14.10"
   },
   "devDependencies": {
