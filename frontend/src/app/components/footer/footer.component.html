@@ -1,0 +1,42 @@
+<footer class="w-full h-full border-t border-t-stone-800 grid grid-row-2">
+    <div class="flex justify-between py-10">
+        <div class="flex flex-col justify-start px-10 py-4">
+            <div class="text-2xl font-bold text-primary-text">
+                <a href="/">Elite Learning</a>
+            </div>
+            <div class="mt-8">
+                <ul class="flex flex-col gap-y-2 text-base">
+                    <li class="text-primary-accent hover:text-primary-text block"><a class="flex items-center"
+                            href="">Get
+                            Started
+                            <ng-icon name="matArrowForwardRound" class="ml-1" size="20"></ng-icon></a></li>
+                    <li class="text-primary-accent hover:text-primary-text"><a href="">About Us</a></li>
+                    <li class="text-primary-accent hover:text-primary-text"><a href="" class="flex items-center">Docs
+                            <ng-icon name="octLinkExternal" class=" ml-1" size="16"></ng-icon></a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="w-full h-full text-center py-4 px-10 max-w-[600px] flex flex-col justify-start">
+            <span class="text-primary-text text-6xl text-left tracking-wide mb-2">CONTACT US</span>
+            <form (ngSubmit)="redirectToGmail()" #contactForm="ngForm"
+                class="border border-stone-800 flex justify-center items-center rounded-sm">
+                <input type="email" name="email" ngModel placeholder="example@123.com" required
+                    class="flex w-full bg-transparent focus:outline-none text-primary-text text-3xl border-r border-r-stone-800 py-6 px-4">
+                <div>
+                    <button type="submit" class="flex justify-center items-center hover:bg-[#2b2b2b] px-8 py-[30px]">
+                        <ng-icon name="matArrowForwardRound" class="text-primary-bg"></ng-icon>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="border-t border-t-stone-800 px-10 py-2 flex justify-between">
+        <div class="flex items-center">
+            <span class="text-primary-accent text-xs">© 2024 Elite Learning</span>
+        </div>
+        <div class="flex items-center text-primary-accent text-xs gap-x-3">
+            <span>Terms of Service</span>
+            <span>Privacy Policy</span>
+        </div>
+    </div>
+</footer>
