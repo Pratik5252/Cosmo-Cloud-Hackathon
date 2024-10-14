@@ -9,6 +9,7 @@ import {
   provideNgIconsConfig,
 } from '@ng-icons/core';
 import { matArrowForwardIosRound } from '@ng-icons/material-icons/round';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-nav',
   standalone: true,
@@ -25,10 +26,12 @@ import { matArrowForwardIosRound } from '@ng-icons/material-icons/round';
 export class NavComponent {
   isLoggedIn: boolean = false;
   scrolled = false;
+  excludedPages = ['/profile'];
 
   constructor(
     // public authService: AuthService,
-    private navigationService: NavigationService // private authOperations: AuthOperationsService
+    private navigationService: NavigationService,
+    private router: Router // private authOperations: AuthOperationsService
   ) {
     // Subscribe to the user observable to check authentication state
     // this.authService.user$.subscribe((user) => {
@@ -38,6 +41,10 @@ export class NavComponent {
 
   @HostListener('window:scroll', [])
   onWindowScroll() {
+    const currentUrl = this.router.url;
+    if (this.excludedPages.includes(currentUrl)) {
+      return;
+    }
     const scrollPosition =
       window.pageYOffset ||
       document.documentElement.scrollTop ||
