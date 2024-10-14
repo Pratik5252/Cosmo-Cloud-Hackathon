@@ -8,6 +8,7 @@ module.exports = {
         "radial-gradient(ellipse 80% 80% at 50% -20%, rgba(119, 141, 170, 0.3), rgba(255, 255, 255, 0));",
       textgradient: "linear-gradient(to right, #52525b 50%, #434343 90%)",
       textgradient2: "linear-gradient(to right, #f5f5f5 50%, #111111 300%)",
+      textgradient3: "linear-gradient(to bottom, #333 50%, #000 90%)",
       grid: "linear-gradient(to_right,#4f4f4f2e_1px,transparent_1px),linear-gradient(to_bottom,#4f4f4f2e_1px,transparent_1px)] bg-[size:24px_24px] [mask-image:radial-gradient(ellipse_80%_50%_at_50%_0%,#000_70%,transparent_110%)",
     },
     extend: {

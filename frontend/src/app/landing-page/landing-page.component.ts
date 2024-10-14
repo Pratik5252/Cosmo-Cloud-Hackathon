@@ -10,6 +10,7 @@ import {
 } from '@ng-icons/core';
 import { matArrowForwardIosRound } from '@ng-icons/material-icons/round';
 import { TypewriterComponent } from '../components/typewriter/typewriter.component';
+
 @Component({
   selector: 'app-landing-page',
   templateUrl: './landing-page.component.html',
