@@ -8,7 +8,7 @@ const prodPath = "./src/environments/environment.prod.ts";
 const devEnvConfigFile = `
 export const environment = {
   production: false,
-  apiKey: '${process.env.DEV_API_KEY}', // Add a variable for your development API key
+  apiKey: '${process.env.API_KEY}', // Add a variable for your development API key
 };
 `;
 
