@@ -53,7 +53,7 @@ export class ProfileComponent implements OnInit {
     'Sunday',
   ];
   userProfile: any;
-  isEditing: boolean = true;
+  isEditing: boolean = false;
   errorMessage: String = '';
   isLoading: boolean = true;
 
