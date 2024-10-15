@@ -7,13 +7,17 @@ import {
   provideIcons,
   provideNgIconsConfig,
 } from '@ng-icons/core';
-import { matEditRound } from '@ng-icons/material-icons/round';
-import { matLocationOnRound } from '@ng-icons/material-icons/round';
-import { matLibraryBooks } from '@ng-icons/material-icons/baseline';
-import { matWorkRound } from '@ng-icons/material-icons/round';
-import { matSubdirectoryArrowRight } from '@ng-icons/material-icons/baseline';
-import { matDeleteRound } from '@ng-icons/material-icons/round';
-import { matAddBoxRound } from '@ng-icons/material-icons/round';
+import {
+  matLibraryBooks,
+  matSubdirectoryArrowRight,
+} from '@ng-icons/material-icons/baseline';
+import {
+  matDeleteRound,
+  matAddBoxRound,
+  matLocationOnRound,
+  matEditRound,
+  matWorkRound,
+} from '@ng-icons/material-icons/round';
 import { matAddBoxOutline } from '@ng-icons/material-icons/outline';
 
 import { AuthService } from '../services/auth/auth.service';
