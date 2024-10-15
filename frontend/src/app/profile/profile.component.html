@@ -1,5 +1,4 @@
-<div class="max-w-2xl mx-auto p-4 bg-white rounded-lg shadow-md">
-  <h1 class="font-semibold mb-4 text-center">Profile</h1>
+<div class="max-w-6xl mx-auto rounded-lg shadow-md mt-24 mb-20 px-16">
 
   <!-- Loading State -->
   <div *ngIf="isLoading" class="text-center">
@@ -14,132 +13,231 @@
   <!-- Profile content -->
   <div *ngIf="userProfile">
     <!-- View Mode -->
-    <div *ngIf="!isEditing">
-      <button (click)="isEditing = true" class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded inline-flex items-center" title="Edit">
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="fill-current w-4 h-4 mr-2">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.121 4.879a3 3 0 00-4.243 0L3.879 10.828A3 3 0 003 12.414V18a2 2 0 002 2h5.586a3 3 0 001.414-.586l6.999-6.999a3 3 0 000-4.243l-3.586-3.586z" />
-        </svg>
-        Edit
-      </button>
-      <h3 class="text-xl font-medium">{{ userProfile.name || 'N/A' }}</h3>
-      <p class="text-gray-700">Email: {{ userProfile.email || 'N/A' }}</p>
-
-      <h4 class="text-lg font-semibold mt-4">Study Goals</h4>
-      <div *ngIf="userProfile.studyGoals && userProfile.studyGoals.length; else noStudyGoals">
-        <div *ngFor="let goal of userProfile.studyGoals" class="mb-2">
-          <p class="text-gray-600">Subject: {{ goal.subject || 'N/A' }}</p>
-          <p class="text-gray-600">Level: {{ goal.level || 'N/A' }}</p>
-          <p class="text-gray-600">Duration: {{ goal.duration || 'N/A' }}</p>
+    <div *ngIf="!isEditing" class="flex flex-col gap-4">
+      <div class="bg-minegray border border-stone-800 text-primary-accent rounded-md px-8 py-4">
+        <p class="font-medium text-4xl text-primary-text">Profile</p>
+        <div class="leading-4 tracking-wide mb-8">
+          <div>
+            <p class="">Name: <span>{{ userProfile.name || 'N/A' }}</span></p>
+            <p class="">Email: <span>{{ userProfile.email || 'N/A' }}</span></p>
+          </div>
+          <div class="flex items-baseline gap-1">
+            <ng-icon name="matLocationOnRound" class="text-red-500" size="16"></ng-icon>
+            <div class="flex gap-1">
+              <p class="">{{ userProfile.location?.city + "," || 'N/A' }}</p>
+              <p class="">{{ userProfile.location?.country || 'N/A' }}</p>
+            </div>
+          </div>
+        </div>
+        <div>
+          <button (click)="isEditing = true"
+            class="bg-primary-bg hover:bg-primary-text text-secondary-text font-medium py-2 px-6 mb-4 rounded inline-flex justify-center items-center gap-1"
+            title="Edit">
+            EDIT <ng-icon name="matEditRound" size="16"></ng-icon>
+          </button>
         </div>
       </div>
-      <ng-template #noStudyGoals>
-        <p class="text-gray-600">No study goals have been specified.</p>
-      </ng-template>
 
-      <h4 class="text-lg font-semibold mt-4">Career Goals</h4>
-      <div *ngIf="userProfile.careerGoals && userProfile.careerGoals.length; else noCareerGoals">
-        <div *ngFor="let career of userProfile.careerGoals" class="mb-2">
-          <p class="text-gray-600">Field: {{ career.field || 'N/A' }}</p>
-          <p class="text-gray-600">Role: {{ career.role || 'N/A' }}</p>
-          <p class="text-gray-600">Skills to Develop: {{ career.skillsToDevelop.length ? career.skillsToDevelop.join(',
-            ') : 'N/A' }}</p>
+      <div class="flex justify-between w-full gap-x-4">
+        <div class="bg-minegray border border-stone-800 text-primary-accent rounded-md px-8 py-4 w-[50vw]">
+          <h4 class="text-lg font-semibold mt-4">Study Goals</h4>
+          <div *ngIf="userProfile.studyGoals && userProfile.studyGoals.length; else noStudyGoals" class="leading-4">
+            <div *ngFor="let goal of userProfile.studyGoals" class="mb-2">
+              <span class="flex gap-2 mb-2"><ng-icon name="matLibraryBooks"></ng-icon>{{ goal.subject || 'N/A' }}</span>
+              <div class="flex gap-x-4">
+                <p class="">Level: {{ goal.level || 'N/A' }}</p>
+                <p class="">Duration: {{ goal.duration || 'N/A' }}</p>
+              </div>
+              <div>
+                <hr class="border-stone-700">
+              </div>
+            </div>
+          </div>
+          <ng-template #noStudyGoals>
+            <p class="text-primary-accent">No study goals have been specified.</p>
+          </ng-template>
+        </div>
+        <div class="bg-minegray border border-stone-800 text-primary-accent rounded-md px-8 py-4 w-[50vw]">
+          <h4 class="text-lg font-semibold mt-4">Career Goals</h4>
+          <div *ngIf="userProfile.careerGoals && userProfile.careerGoals.length; else noCareerGoals" class="leading-4">
+            <div *ngFor="let career of userProfile.careerGoals" class="mb-2">
+              <span class="flex gap-2 mb-2"><ng-icon name="matWorkRound"></ng-icon>{{ career.field || 'N/A' }}</span>
+              <div class="flex gap-x-4">
+                <p class="">Role: {{ career.role || 'N/A' }}</p>
+                <p class="">Skills to Develop: {{ career.skillsToDevelop.length ?
+                  career.skillsToDevelop.join(',
+                  ') : 'N/A' }}</p>
+              </div>
+              <div>
+                <hr class="border-stone-700">
+              </div>
+            </div>
+          </div>
+          <ng-template #noCareerGoals>
+            <p class="text-gray-600">No career goals have been specified.</p>
+          </ng-template>
         </div>
       </div>
-      <ng-template #noCareerGoals>
-        <p class="text-gray-600">No career goals have been specified.</p>
-      </ng-template>
 
-      <h4 class="text-lg font-semibold mt-4">Preferred Learning Methods</h4>
-      <p class="text-gray-600">{{ userProfile.preferredLearningMethods?.length ?
-        userProfile.preferredLearningMethods.join(', ') : 'No preferred learning methods specified.' }}</p>
+      <div class="flex gap-x-4">
+        <div class="bg-minegray border border-stone-800 text-primary-accent rounded-md px-8 py-4 w-[60vw]">
+          <span class="text-lg font-semibold mt-4">Preferred Learning Methods</span>
+          <p class=""><ng-icon name="matSubdirectoryArrowRight"></ng-icon>{{
+            userProfile.preferredLearningMethods?.length ?
+            userProfile.preferredLearningMethods.join(', ') : 'No preferred learning methods specified.' }}</p>
 
-      <h4 class="text-lg font-semibold mt-4">Current Skills</h4>
-      <p class="text-gray-600">{{ userProfile.currentSkills?.length ? userProfile.currentSkills.join(', ') : 'No current
-        skills specified.' }}</p>
+          <span class="text-lg font-semibold mt-4">Current Skills</span>
+          <p class=""><ng-icon name="matSubdirectoryArrowRight"></ng-icon>{{ userProfile.currentSkills?.length ?
+            userProfile.currentSkills.join(', ') : 'No
+            current
+            skills specified.' }}</p>
 
-      <h4 class="text-lg font-semibold mt-4">Preferred Content Types</h4>
-      <p class="text-gray-600">{{ userProfile.preferredContentTypes?.length ? userProfile.preferredContentTypes.join(',
-        ') : 'No preferred content types specified.' }}</p>
+          <span class="text-lg font-semibold mt-4">Preferred Content Types</span>
+          <p class=""><ng-icon name="matSubdirectoryArrowRight"></ng-icon>{{ userProfile.preferredContentTypes?.length ?
+            userProfile.preferredContentTypes.join(',
+            ') : 'No preferred content types specified.' }}</p>
+        </div>
 
-      <h4 class="text-lg font-semibold mt-4">Location</h4>
-      <p class="text-gray-600">Country: {{ userProfile.location?.country || 'N/A' }}</p>
-      <p class="text-gray-600">City: {{ userProfile.location?.city || 'N/A' }}</p>
-
-      <h4 class="text-lg font-semibold mt-4">Time Commitment</h4>
-      <p class="text-gray-600">Weekly Hours: {{ userProfile.timeCommitment?.weeklyHours || 'N/A' }}</p>
-      <p class="text-gray-600">Preferred Days: {{ userProfile.timeCommitment?.preferredDays?.length ?
-        userProfile.timeCommitment.preferredDays.join(', ') : 'No preferred days specified.' }}</p>
+        <div class="bg-minegray border border-stone-800 text-primary-accent rounded-md px-8 py-4 flex flex-col">
+          <h4 class="text-lg font-semibold mt-4 inline-block">⏳ Time Commitment</h4>
+          <p class="">Weekly Hours: {{ userProfile.timeCommitment?.weeklyHours || 'N/A' }}</p>
+          <p class="">Preferred Days: {{ userProfile.timeCommitment?.preferredDays?.length ?
+            userProfile.timeCommitment.preferredDays.join(', ') : 'No preferred days specified.' }}</p>
+        </div>
+      </div>
     </div>
 
     <!-- Edit Mode -->
     <div *ngIf="isEditing" class="mt-4">
-      <h3 class="text-xl font-medium">Edit User</h3>
-      <input [(ngModel)]="userProfile.name" placeholder="Name"
-        class="mt-2 block w-full p-2 border border-gray-300 rounded" />
-      <input [(ngModel)]="userProfile.email" placeholder="Email"
-        class="mt-2 block w-full p-2 border border-gray-300 rounded" />
-
-      <h4 class="text-lg font-semibold mt-4">Study Goals</h4>
-      <div *ngFor="let goal of userProfile.studyGoals; let i = index" class="mb-2">
-        <input [(ngModel)]="goal.subject" placeholder="Subject"
-          class="mt-2 block w-full p-2 border border-gray-300 rounded" />
-        <input [(ngModel)]="goal.level" placeholder="Level"
-          class="mt-2 block w-full p-2 border border-gray-300 rounded" />
-        <input [(ngModel)]="goal.duration" placeholder="Duration"
-          class="mt-2 block w-full p-2 border border-gray-300 rounded" />
-        <button (click)="userProfile.studyGoals.splice(i, 1)"
-          class="mt-2 px-2 py-1 bg-red-500 text-white rounded hover:bg-red-600">Remove</button>
+      <h3 class="text-xl font-semibold text-primary-accent">Edit User</h3>
+      <div class="text-primary-text px-8">
+        <div class="flex gap-x-4">
+          <div class="w-[30vw]">
+            <label for="name" class="text-primary-accent">Name</label>
+            <input [(ngModel)]="userProfile.name" placeholder="Name" type="text" id="name" class="custom-input" />
+          </div>
+          <div class="w-[30vw]">
+            <label for="email" class="text-primary-accent">Email</label>
+            <input [(ngModel)]="userProfile.email" placeholder="Email" type="text" id="email" class="custom-input" />
+          </div>
+        </div>
+        <div class="mt-4  w-full h-full">
+          <!-- <p class="text-2xl text-primary-accent">Location</p> -->
+          <div class="flex gap-x-4">
+            <div><label for="name" class="text-primary-accent">City</label>
+              <input [(ngModel)]="userProfile.location.city" placeholder="City" id="city" class="custom-input" />
+            </div>
+            <div><label for="name" class="text-primary-accent">Country</label>
+              <input [(ngModel)]="userProfile.location.country" placeholder="Country" id="country"
+                class="custom-input" />
+            </div>
+          </div>
+        </div>
       </div>
-      <button (click)="userProfile.studyGoals.push({ subject: '', level: '', duration: '' })"
-        class="mt-2 px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600">Add Study Goal</button>
 
-      <h4 class="text-lg font-semibold mt-4">Career Goals</h4>
-      <div *ngFor="let career of userProfile.careerGoals; let j = index" class="mb-2">
-        <input [(ngModel)]="career.field" placeholder="Field"
-          class="mt-2 block w-full p-2 border border-gray-300 rounded" />
-        <input [(ngModel)]="career.role" placeholder="Role"
-          class="mt-2 block w-full p-2 border border-gray-300 rounded" />
-        <input [(ngModel)]="career.skillsToDevelop" placeholder="Skills to Develop (comma separated)"
-          class="mt-2 block w-full p-2 border border-gray-300 rounded" />
-        <button (click)="userProfile.careerGoals.splice(j, 1)"
-          class="mt-2 px-2 py-1 bg-red-500 text-white rounded hover:bg-red-600">Remove</button>
+      <div class="text-primary-text px-8 mt-8">
+        <div class="flex justify-between">
+          <h4 class="text-lg font-semibold mt-4">Study Goals</h4>
+          <div class="flex justify-center items-center ">
+            <button (click)="userProfile.studyGoals.push({ subject: '', level: '', duration: '' })"
+              class="flex justify-center items-center gap-2 border border-stone-800 hover:bg-[#1a1a1a] rounded px-4 py-2">Add
+              Goals<ng-icon name="matAddBoxOutline" size="24"></ng-icon></button>
+          </div>
+        </div>
+        <div *ngFor="let goal of userProfile.studyGoals; let i = index" class="w-full mb-2 flex items-end gap-x-4">
+          <div class="w-full">
+            <label for="subject" class="text-primary-accent">Subject</label>
+            <input [(ngModel)]="goal.subject" placeholder="Subject" id="subject" type="text" class="custom-input" />
+          </div>
+          <div>
+            <label for="level" class="text-primary-accent">Level</label>
+            <input [(ngModel)]="goal.level" placeholder="Level" id="level" type="number" class="custom-input" />
+          </div>
+          <div>
+            <label for="duration" class="text-primary-accent">Duration</label>
+            <input [(ngModel)]="goal.duration" placeholder="Duration" id="duration" type="number"
+              class="custom-input" />
+          </div>
+          <div class="">
+            <button (click)="userProfile.studyGoals.splice(i, 1)"
+              class="px-2.5 py-2.5 border border-stone-800 hover:bg-red-500 text-white rounded flex justify-center items-center"><ng-icon
+                name="matDeleteRound"></ng-icon></button>
+          </div>
+        </div>
       </div>
-      <button (click)="userProfile.careerGoals.push({ field: '', role: '', skillsToDevelop: [] })"
-        class="mt-2 px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600">Add Career Goal</button>
 
-      <h4 class="text-lg font-semibold mt-4">Preferred Learning Methods</h4>
-      <input [(ngModel)]="userProfile.preferredLearningMethods" placeholder="Comma-separated learning methods"
-        class="mt-2 block w-full p-2 border border-gray-300 rounded" />
+      <div class="text-primary-text px-8 mt-8">
+        <div class="flex justify-between">
+          <h4 class="text-lg font-semibold mt-4">Career Goals</h4>
+          <div class="flex justify-center items-center">
+            <button (click)="userProfile.careerGoals.push({ field: '', role: '', skillsToDevelop: [] })"
+              class="flex justify-center items-center gap-2 border border-stone-800 hover:bg-[#1a1a1a] rounded px-4 py-2">
+              Add Goals<ng-icon name="matAddBoxOutline" size="24"></ng-icon>
+            </button>
+          </div>
+        </div>
+        <div *ngFor="let career of userProfile.careerGoals; let j = index" class="w-full mb-2 flex items-end gap-x-4">
+          <div>
+            <label for="field" class="text-primary-accent">Field</label>
+            <input [(ngModel)]="career.field" placeholder="Field" id="field" type="text" class="custom-input" />
+          </div>
+          <div class="w-[30vw]">
+            <label for="role" class="text-primary-accent">Role</label>
+            <input [(ngModel)]="career.role" placeholder="Role" id="role" type="text" class="custom-input" />
+          </div>
+          <div class="w-[50vw]">
+            <label for="skillsToDevelop" class="text-primary-accent">Skills to Develop</label>
+            <input [(ngModel)]="career.skillsToDevelop" placeholder="Skills to Develop (comma separated)"
+              id="skillsToDevelop" type="text" class="custom-input" />
+          </div>
+          <div class="">
+            <button (click)="userProfile.careerGoals.splice(j, 1)"
+              class="px-2.5 py-2.5 border border-stone-800 hover:bg-red-500 text-white rounded flex justify-center items-center">
+              <ng-icon name="matDeleteRound"></ng-icon>
+            </button>
+          </div>
+        </div>
+      </div>
 
-      <h4 class="text-lg font-semibold mt-4">Current Skills</h4>
-      <input [(ngModel)]="userProfile.currentSkills" placeholder="Comma-separated skills"
-        class="mt-2 block w-full p-2 border border-gray-300 rounded" />
+      <div class="text-primary-text px-8 mt-8">
+        <div class="flex gap-x-4">
+          <div class="w-[50vw]">
+            <h4 class="text-lg font-semibold mt-4">Current Skills</h4>
+            <input [(ngModel)]="userProfile.currentSkills" placeholder="Comma-separated skills" class="custom-input" />
+          </div>
+          <div class="w-[50vw]">
+            <h4 class="text-lg font-semibold mt-4">Time Commitment</h4>
+            <input [(ngModel)]="userProfile.timeCommitment.weeklyHours" placeholder="Weekly Hours" type="number"
+              class="custom-input" />
+          </div>
+        </div>
+      </div>
 
-      <h4 class="text-lg font-semibold mt-4">Preferred Content Types</h4>
-      <select [(ngModel)]="userProfile.preferredContentTypes" multiple
-        class="mt-2 block w-full p-2 border border-gray-300 rounded">
-        <option *ngFor="let type of contentTypes" [value]="type">{{ type }}</option>
-      </select>
-
-      <h4 class="text-lg font-semibold mt-4">Location</h4>
-      <input [(ngModel)]="userProfile.location.country" placeholder="Country"
-        class="mt-2 block w-full p-2 border border-gray-300 rounded" />
-      <input [(ngModel)]="userProfile.location.city" placeholder="City"
-        class="mt-2 block w-full p-2 border border-gray-300 rounded" />
-
-      <h4 class="text-lg font-semibold mt-4">Time Commitment</h4>
-      <input [(ngModel)]="userProfile.timeCommitment.weeklyHours" placeholder="Weekly Hours" type="number"
-        class="mt-2 block w-full p-2 border border-gray-300 rounded" />
-      <h4 class="text-lg font-semibold mt-4">Preferred Days</h4>
-      <select [(ngModel)]="userProfile.timeCommitment.preferredDays" multiple
-        class="mt-2 block w-full p-2 border border-gray-300 rounded">
-        <option *ngFor="let day of daysOfWeek" [value]="day">{{ day }}</option>
-      </select>
-
-      <button (click)="updateUser()"
-        class="mt-4 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600">Save</button>
-      <button (click)="isEditing = false"
-        class="mt-4 ml-2 px-4 py-2 bg-gray-300 rounded hover:bg-gray-400">Cancel</button>
+      <div class="text-primary-text px-8 mt-8">
+        <h4 class="text-lg font-semibold mt-4">Preferred Choice</h4>
+        <div>
+          <label for="learning-method" class="text-primary-accent">Learning Method</label>
+          <input [(ngModel)]="userProfile.preferredLearningMethods" placeholder="Comma-separated learning methods"
+            class="custom-input" id="learning-method" />
+        </div>
+        <div class="mt-4">
+          <label for="content-type" class="text-primary-accent">Content Type</label>
+          <select [(ngModel)]="userProfile.preferredContentTypes" multiple id="content-type" class="custom-input">
+            <option *ngFor="let type of contentTypes" [value]="type">{{ type }}</option>
+          </select>
+        </div>
+        <div class="mt-4">
+          <label for="days" class="text-primary-accent">Days</label>
+          <select [(ngModel)]="userProfile.timeCommitment.preferredDays" multiple id="days" class="custom-input">
+            <option *ngFor="let day of daysOfWeek" [value]="day">{{ day }}</option>
+          </select>
+        </div>
+      </div>
+      <div class="text-primary-text px-8 mt-8">
+        <button (click)="updateUser()"
+          class="mt-4 px-6 py-2 bg-blue-500 text-white rounded hover:bg-blue-600">Save</button>
+        <button (click)="isEditing = false" class="mt-4 ml-2 px-4 py-2 border border-stone-800 rounded">Cancel</button>
+      </div>
     </div>
   </div>
 </div>

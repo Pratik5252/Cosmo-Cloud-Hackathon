@@ -25,6 +25,8 @@ module.exports = {
           bg: "#121212",
           text: "#161612",
         },
+        minegray: "#222222",
+        stroke: "#6A6A6A",
       },
       keyframes: {
         typing: {
