@@ -17,7 +17,7 @@ export class AuthOperationsService {
 
     if (user) {
       console.log('User logged in:', user);
-      this.navigationService.navigateToLandingPage();
+      this.navigationService.navigateToDashboard();
     } else {
       console.error('Login failed');
     }
