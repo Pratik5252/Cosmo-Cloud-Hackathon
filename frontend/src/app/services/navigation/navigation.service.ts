@@ -1,3 +1,4 @@
+import { Location } from '@angular/common';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 
@@ -5,7 +6,7 @@ import { Router } from '@angular/router';
   providedIn: 'root',
 })
 export class NavigationService {
-  constructor(private router: Router) {}
+  constructor(private router: Router, private location: Location) {}
 
   navigateTo(route: string) {
     this.router.navigate([route]);
@@ -25,6 +26,11 @@ export class NavigationService {
 
   navigateToLandingPage() {
     this.navigateTo('/landingpage');
+  }
+
+  //This helps to works for previous page navigation
+  previousPage() {
+    this.location.back();
   }
 
   // Add more navigation methods as needed

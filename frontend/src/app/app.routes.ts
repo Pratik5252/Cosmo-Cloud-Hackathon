@@ -6,10 +6,10 @@ import { RoadmapsComponent } from './roadmaps/roadmaps.component';
 import { AuthGuard } from './guards/auth.guard';
 
 export const routes: Routes = [
-  { path: '', redirectTo: '/landingpage', pathMatch: 'full' },
+  { path: '', redirectTo: '/', pathMatch: 'full' },
   { path: 'dashboard', component: DashboardComponent },
   { path: 'landingpage', component: LandingPageComponent },
   { path: 'profile', component: ProfileComponent },
-  { path: 'roadmap', component: RoadmapsComponent },
+  { path: 'roadmap', component: RoadmapsComponent, canActivate: [AuthGuard] },
   // Add more routes as needed
 ];

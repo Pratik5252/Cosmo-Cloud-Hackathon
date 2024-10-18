@@ -39,7 +39,8 @@
       </div>
 
       <div class="flex flex-col lg:flex-row justify-between w-full gap-y-4 lg:gap-x-4">
-        <div class="w-full lg:w-[50vw] bg-minegray border border-stone-800 text-primary-accent rounded-md px-8 py-4 ">
+        <div class="w-full lg:w-[50vw] bg-minegray border border-stone-800 text-primary-accent rounded-md px-8 py-4 "
+          *ngIf='userProfile.studyGoals'>
           <h4 class="text-lg font-semibold mt-4">Study Goals</h4>
           <div *ngIf="userProfile.studyGoals && userProfile.studyGoals.length; else noStudyGoals" class="leading-4">
             <div *ngFor="let goal of userProfile.studyGoals" class="mb-2">
@@ -57,7 +58,8 @@
             <p class="text-primary-accent">No study goals have been specified.</p>
           </ng-template>
         </div>
-        <div class="w-full lg:w-[50vw] bg-minegray border border-stone-800 text-primary-accent rounded-md px-8 py-4">
+        <div class="w-full lg:w-[50vw] bg-minegray border border-stone-800 text-primary-accent rounded-md px-8 py-4"
+          *ngIf='userProfile.careerGoals'>
           <h4 class="text-lg font-semibold mt-4">Career Goals</h4>
           <div *ngIf="userProfile.careerGoals && userProfile.careerGoals.length; else noCareerGoals" class="leading-4">
             <div *ngFor="let career of userProfile.careerGoals" class="mb-2">
@@ -80,7 +82,8 @@
       </div>
 
       <div class="flex flex-col lg:flex-row gap-y-4 lg:gap-x-4">
-        <div class="w-full lg:w-[60vw] bg-minegray border border-stone-800 text-primary-accent rounded-md px-8 py-4">
+        <div class="w-full lg:w-[60vw] bg-minegray border border-stone-800 text-primary-accent rounded-md px-8 py-4 "
+          *ngIf='userProfile.preferredLearningMethods'>
           <h4 class="text-lg font-semibold mt-4">Prefferences</h4>
           <span class="text-lg font-semibold mt-4">Preferred Learning Methods</span>
           <p class=""><ng-icon name="matSubdirectoryArrowRight"></ng-icon>{{
@@ -100,7 +103,8 @@
         </div>
 
         <div
-          class="w-full lg:w-[40vw] bg-minegray border border-stone-800 text-primary-accent rounded-md px-8 py-4 flex flex-col ">
+          class="w-full lg:w-[40vw] bg-minegray border border-stone-800 text-primary-accent rounded-md px-8 py-4 flex flex-col"
+          *ngIf='userProfile.timeCommitment'>
           <h4 class="text-lg font-semibold mt-4 inline-block">⏳ Time Commitment</h4>
           <p class="">Weekly Hours: {{ userProfile.timeCommitment?.weeklyHours || 'N/A' }}</p>
           <p class="">Preferred Days: {{ userProfile.timeCommitment?.preferredDays?.length ?

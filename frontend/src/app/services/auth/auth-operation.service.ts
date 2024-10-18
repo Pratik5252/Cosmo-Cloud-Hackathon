@@ -13,6 +13,8 @@ export class AuthOperationsService {
 
   async login(): Promise<void> {
     const user = await this.authService.signInWithGoogle();
+    console.log(user);
+
     if (user) {
       console.log('User logged in:', user);
       this.navigationService.navigateToLandingPage();
