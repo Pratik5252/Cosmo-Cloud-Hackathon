@@ -44,7 +44,8 @@
           <app-typewriter></app-typewriter>
         </div>
         <button
-          class="flex justify-center items-center text-base bg-primary-bg text-secondary-text font-medium py-2 px-4 rounded-md">Get
+          class="flex justify-center items-center text-base bg-primary-bg text-secondary-text font-medium py-2 px-4 rounded-md"
+          (click)="isLoggedIn ? navigateToRoadmaps() : handleLogin()">Get
           Started</button>
       </div>
     </div>

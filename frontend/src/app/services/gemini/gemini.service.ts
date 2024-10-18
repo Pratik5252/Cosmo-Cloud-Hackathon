@@ -20,7 +20,7 @@ export class ChatService {
 
   constructor() {
     this.genAI = new GoogleGenerativeAI(environment.apiKey); // Replace with your actual API key
-    this.model = this.genAI.getGenerativeModel({ model: 'gemini-pro' });
+    this.model = this.genAI.getGenerativeModel({ model: 'gemini-1.5-flash' });
   }
 
   getMessages(): Observable<ChatMessage[]> {

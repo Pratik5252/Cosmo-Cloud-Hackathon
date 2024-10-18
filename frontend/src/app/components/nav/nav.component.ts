@@ -1,8 +1,8 @@
 import { Component, HostListener } from '@angular/core';
-// import { AuthService } from '../../services/auth/auth.service';
+import { AuthService } from '../../services/auth/auth.service';
 import { CommonModule } from '@angular/common';
 import { NavigationService } from '../../services/navigation/navigation.service';
-// import { AuthOperationsService } from '../../services/auth/auth-operation.service';
+import { AuthOperationsService } from '../../services/auth/auth-operation.service';
 import {
   NgIconComponent,
   provideIcons,
@@ -29,14 +29,15 @@ export class NavComponent {
   excludedPages = ['/profile'];
 
   constructor(
-    // public authService: AuthService,
+    public authService: AuthService,
     private navigationService: NavigationService,
-    private router: Router // private authOperations: AuthOperationsService
+    private router: Router,
+    private authOperations: AuthOperationsService
   ) {
     // Subscribe to the user observable to check authentication state
-    // this.authService.user$.subscribe((user) => {
-    //   this.isLoggedIn = !!user;
-    // });
+    this.authService.user$.subscribe((user) => {
+      this.isLoggedIn = !!user;
+    });
   }
 
   @HostListener('window:scroll', [])
@@ -54,14 +55,18 @@ export class NavComponent {
   }
 
   async handleLogin() {
-    // this.authOperations.login();
+    this.authOperations.login();
   }
 
   async handleLogout() {
-    // this.authOperations.logout();
+    this.authOperations.logout();
   }
 
   navigateToProfile() {
     this.navigationService.navigateToProfile();
+  }
+
+  navigateToRoadmaps() {
+    this.navigationService.navigateToRoadmaps();
   }
 }

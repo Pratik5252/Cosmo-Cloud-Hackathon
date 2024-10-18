@@ -2,7 +2,7 @@
     <nav [ngClass]="{ 'top-0 w-full': !scrolled, 'top-8 w-[80vw] rounded-lg': scrolled }"
         class="navbar w-full fixed flex justify-between items-center transition-all duration-300 ease-in-out bg-[#121212] backdrop-blur-md py-4 px-8 shadow-md border border-stone-800">
         <div class="navbar-brand text-2xl font-bold text-primary-text">
-            <a href="/">Elite Learning</a>
+            <a href="/">Skillsphere</a>
         </div>
         <ul class="navbar-nav flex justify-center items-center ">
             <li class="ml-8">
@@ -14,16 +14,17 @@
             </li>
             <li class="ml-4">
                 <button
-                    class="flex justify-center items-center text-base bg-primary-bg text-secondary-text font-medium py-2 px-2 rounded-md">
-                    Get Started
+                    class="flex justify-center items-center text-base bg-primary-bg text-secondary-text font-medium py-2 px-2 rounded-md"
+                    (click)="isLoggedIn ? navigateToRoadmaps() : handleLogin()">Get Started
+
 
                 </button>
             </li>
-            <li class="nav-item ml-8" *ngIf="isLoggedIn">
+            <!-- <li class="nav-item ml-8" *ngIf="isLoggedIn">
                 <button (click)="navigateToProfile()">
                     <img src="image" alt="User Profile Picture" class="w-10 h-10 rounded-full" />
                 </button>
-            </li>
+            </li> -->
         </ul>
     </nav>
 </div>

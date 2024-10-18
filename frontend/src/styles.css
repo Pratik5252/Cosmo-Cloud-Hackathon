@@ -13,3 +13,7 @@ body {
   padding: 0;
   font-family: Roboto, "Helvetica Neue", sans-serif;
 }
+
+.custom-input {
+  @apply w-full p-2 border border-stone-800 hover:border hover:border-stone-400 bg-transparent rounded-sm;
+}
