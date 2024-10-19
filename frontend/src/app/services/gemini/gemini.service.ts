@@ -32,18 +32,25 @@ export class ChatService {
     currentMessages.push({ role: 'user', content: message });
     this.messagesSubject.next(currentMessages);
 
+    currentMessages.push({ role: 'bot', content: '' });
+    this.messagesSubject.next(currentMessages);
+
     try {
       const result = await this.model.generateContent(message);
       const response = await result.response;
       const botMessage = response.text();
-      currentMessages.push({ role: 'bot', content: botMessage });
+
+      currentMessages[currentMessages.length - 1] = {
+        role: 'bot',
+        content: botMessage,
+      };
       this.messagesSubject.next(currentMessages);
     } catch (error) {
       console.error('Error generating response:', error);
-      currentMessages.push({
+      currentMessages[currentMessages.length - 1] = {
         role: 'bot',
         content: 'Sorry, I encountered an error. Please try again.',
-      });
+      };
       this.messagesSubject.next(currentMessages);
     }
   }

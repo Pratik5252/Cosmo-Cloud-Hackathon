@@ -1,1 +1,13 @@
+.dot-loader {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 
+.dot-loader div {
+  width: 8px;
+  height: 8px;
+  margin: 0 4px;
+  background-color: #dedede;
+  border-radius: 50%;
+}

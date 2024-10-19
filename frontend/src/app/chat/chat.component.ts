@@ -36,12 +36,14 @@ export class ChatComponent implements OnInit {
   isPopoverOpen = false;
   messages: ChatMessage[] = [];
   newMessage: string = '';
+  loading = false;
 
   constructor(private chatService: ChatService) {}
 
   ngOnInit() {
     this.chatService.getMessages().subscribe((messages) => {
       this.messages = messages;
+      this.loading = false;
     });
   }
   @ViewChild('popover') popoverElement!: ElementRef;
@@ -63,6 +65,7 @@ export class ChatComponent implements OnInit {
     if (this.newMessage.trim()) {
       this.chatService.sendMessage(this.newMessage);
       this.newMessage = '';
+      this.loading = true;
     }
   }
 }
