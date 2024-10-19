@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { UserService } from '../services/user/userPreference.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -19,8 +19,8 @@ import {
   matWorkRound,
 } from '@ng-icons/material-icons/round';
 import { matAddBoxOutline } from '@ng-icons/material-icons/outline';
-
 import { AuthService } from '../services/auth/auth.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-profile',
@@ -44,8 +44,7 @@ import { AuthService } from '../services/auth/auth.service';
   templateUrl: './profile.component.html',
   styleUrl: './profile.component.css',
 })
-export class ProfileComponent implements OnInit {
-  sampleUserId: string = '670b6a847e6059ef85f58c55';
+export class ProfileComponent implements OnInit, OnDestroy {
   contentTypes = ['Text', 'Video', 'Audio', 'Interactive', 'Quiz', 'PDF'];
   daysOfWeek: string[] = [
     'Monday',
@@ -58,8 +57,10 @@ export class ProfileComponent implements OnInit {
   ];
   userProfile: any;
   isEditing: boolean = false;
-  errorMessage: String = '';
+  error: boolean = false;
+  errorMessage: string = '';
   isLoading: boolean = true;
+  private userSubscription?: Subscription;
 
   constructor(
     private userService: UserService,
@@ -68,6 +69,12 @@ export class ProfileComponent implements OnInit {
 
   ngOnInit() {
     this.loadUserProfile();
+  }
+
+  ngOnDestroy() {
+    if (this.userSubscription) {
+      this.userSubscription.unsubscribe();
+    }
   }
 
   initializeUserProfile() {
@@ -90,23 +97,27 @@ export class ProfileComponent implements OnInit {
     }
   }
 
-  async loadUserProfile(): Promise<void> {
-    // const user = await firstValueFrom(this.authService.createdUser$);
-    this.userService
-      .getUser(this.sampleUserId)
-      .then((response) => {
-        this.isLoading = false;
-        this.errorMessage = '';
-        this.userProfile = response;
-        if (response === null) {
-          this.errorMessage =
-            'We are facing some issues loading your profile.  Please reload the window';
+  loadUserProfile(): void {
+    this.isLoading = true;
+    this.errorMessage = '';
+    this.userSubscription = this.authService.customUser$.subscribe({
+      next: (userData) => {
+        if (userData) {
+          this.userProfile = userData;
+          this.initializeUserProfile();
+          this.errorMessage = '';
+        } else {
+          this.errorMessage = 'User details not found.';
         }
-        this.initializeUserProfile();
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+        this.isLoading = false;
+      },
+      error: (error) => {
+        console.error('Error loading user profile:', error);
+        this.errorMessage =
+          'An error occurred while loading your profile. Please try again.';
+        this.isLoading = false;
+      },
+    });
   }
 
   async updateUser(): Promise<void> {
@@ -116,16 +127,15 @@ export class ProfileComponent implements OnInit {
         this.userProfile.currentSkills = this.userProfile.currentSkills
           .split(',')
           .map((skill: string) => skill.trim())
-          .filter(Boolean); // Remove empty values
+          .filter(Boolean);
       }
       if (typeof this.userProfile.preferredLearningMethods === 'string') {
         this.userProfile.preferredLearningMethods =
           this.userProfile.preferredLearningMethods
             .split(',')
             .map((method: string) => method.trim())
-            .filter(Boolean); // Remove empty values
+            .filter(Boolean);
       }
-      // Ensure each 'skillsToDevelop' inside careerGoals is an array of strings
       if (this.userProfile.careerGoals?.length) {
         this.userProfile.careerGoals.forEach(
           (goal: { skillsToDevelop: any }) => {
@@ -133,23 +143,25 @@ export class ProfileComponent implements OnInit {
               goal.skillsToDevelop = goal.skillsToDevelop
                 .split(',')
                 .map((skill: string) => skill.trim())
-                .filter(Boolean); // Remove empty values
+                .filter(Boolean);
             }
           }
         );
       }
       const { _id, ...userProfileToUpdate } = this.userProfile;
 
-      this.userService
-        .updateUser(this.sampleUserId, userProfileToUpdate)
-        .then((response) => {
-          this.isEditing = false;
-          alert('Updated successfully');
-        })
-        .catch((error) => {
-          console.error('Update failed:', error);
-          alert('Sorry, Update failed');
-        });
-    } else alert('UserPRofile state is null, unable to update');
+      try {
+        await this.userService.updateUser(_id, userProfileToUpdate);
+        this.isEditing = false;
+        alert('Updated successfully');
+        // Refresh the user data in AuthService
+        await this.authService.loadCustomUserData(this.userProfile.userId);
+      } catch (error) {
+        console.error('Update failed:', error);
+        alert('Sorry, Update failed');
+      }
+    } else {
+      alert('UserProfile state is null, unable to update');
+    }
   }
 }

@@ -7,7 +7,7 @@ import { AuthGuard } from './guards/auth.guard';
 import { StudyComponent } from './study/study.component';
 
 export const routes: Routes = [
-  { path: '', redirectTo: '/', pathMatch: 'full' },
+  { path: '', redirectTo: '/landingpage', pathMatch: 'full' },
   { path: 'dashboard', component: DashboardComponent },
   { path: 'landingpage', component: LandingPageComponent },
   { path: 'profile', component: ProfileComponent },

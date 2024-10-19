@@ -6,7 +6,7 @@
   </div>
 
   <!-- Error State -->
-  <div *ngIf="errorMessage" class="text-center text-red-500">
+  <div *ngIf="!isLoading && errorMessage" class="text-center text-red-500">
     <p>{{ errorMessage }}</p>
   </div>
 
@@ -55,7 +55,7 @@
             </div>
           </div>
           <ng-template #noStudyGoals>
-            <p class="text-primary-accent">No study goals have been specified.</p>
+            <p class="text-stone-600">No study goals have been specified.</p>
           </ng-template>
         </div>
         <div class="w-full lg:w-[50vw] bg-minegray border border-stone-800 text-primary-accent rounded-md px-8 py-4"
@@ -76,7 +76,7 @@
             </div>
           </div>
           <ng-template #noCareerGoals>
-            <p class="text-gray-600">No career goals have been specified.</p>
+            <p class="text-stone-600">No career goals have been specified.</p>
           </ng-template>
         </div>
       </div>

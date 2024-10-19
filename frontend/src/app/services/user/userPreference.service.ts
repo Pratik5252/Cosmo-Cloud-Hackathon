@@ -1,6 +1,6 @@
-import { Injectable } from '@angular/core';
 import axios from 'axios';
-import { User } from '../../models/user.model';
+import { Injectable } from '@angular/core';
+import { user } from '@angular/fire/auth';
 
 @Injectable({
   providedIn: 'root',
@@ -14,50 +14,59 @@ export class UserService {
     projectId: this.projectId,
     environmentId: this.environmentId,
   };
-  user: User | null = null;
 
-  getUser(userId: string): Promise<User | null> {
+  async getUserByUid(uid: string): Promise<any> {
+    const limit = 50;
+    let offset = 0;
+    let userFound = null;
+    try {
+      while (!userFound) {
+        const response = await axios.get(
+          `${this.baseUrl}?limit=${limit}&offset=${offset}`,
+          {
+            headers: this.headers,
+          }
+        );
+        const users = response.data.data;
+        const matchedUser = users.find((user: any) => user.userId === uid);
+        return matchedUser ? matchedUser : null; // Return matched user or null if not found
+      }
+    } catch (error) {
+      console.error('Error fetching users:', error);
+      return null;
+    }
+  }
+
+  async createUser(userData: any): Promise<any> {
+    return axios
+      .post(`${this.baseUrl}`, userData, { headers: this.headers })
+      .then((response) => {
+        console.log('User created/fetched:', response.data);
+        return response.data; // The created or existing user
+      })
+      .catch((error) => {
+        console.error('Error creating user:', error);
+        return null;
+      });
+  }
+
+  async getUser(userId: string): Promise<any> {
     return axios
       .get(`${this.baseUrl}/${userId}`, { headers: this.headers })
-      .then((response) => {
-        this.user = response.data;
-        console.log('User Data: ', this.user);
-        return this.user;
-      })
+      .then((response) => response.data)
       .catch((error) => {
-        console.error('Error:', error);
+        console.error('Error getting user:', error);
         return null;
       });
   }
 
-  updateUser(userId: string, userData: User) {
+  async updateUser(userId: string, userData: any): Promise<any> {
     return axios
       .put(`${this.baseUrl}/${userId}`, userData, { headers: this.headers })
-      .then((response) => {
-        console.log('Updated User Data:', response.data);
-        return response.data;
-      })
+      .then((response) => response.data)
       .catch((error) => {
-        console.error('Error updating user data:', error);
+        console.error('Error updating user:', error);
         return null;
       });
-  }
-
-  createUser(userData: any) {
-    // this.user = this.getUser(userData.userId);
-    // if (this.user) {
-    // 	console.log("User " + userData.userId + " already exist.");
-    // 	return this.user;
-    // }
-    // console.log("Creating new user account for " + userData.userId);
-    // axios.post(`${this.baseUrl}`, userData, { headers: this.headers })
-    // 	.then((response) => {
-    // 		console.log(response.data);
-    // 		this.user = response.data;
-    // 		return response.data;
-    // 	})
-    // 	.catch((error) => {
-    // 		console.error("Unable to create user " + error);
-    // 	})
   }
 }
