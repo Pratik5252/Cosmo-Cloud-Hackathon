@@ -1,3 +1,42 @@
-<div id="container">
-    <p>Study works!</p>
+<!-- Study Buddy Section -->
+<div id="container" class="p-6">
+    <div class="mt-8 bg-gray-950 p-6 rounded-md shadow-md w-3/4 mx-auto flex justify-between items-center">
+        <div class=''>
+            <div class="flex items-center py-6 my-6">
+                <img src="https://via.placeholder.com/80" alt="Profile Picture" class="rounded-full h-20 w-20 mr-4">
+                <div>
+                    <span class="text-white text-lg font-medium" *ngIf="studyBuddyName">{{ studyBuddyName }}</span>
+                    <p class="text-gray-300 text-base" *ngIf="studyBuddyJobTitle">{{ studyBuddyJobTitle }}</p>
+                    <p class="text-gray-300 text-base" *ngIf="studyBuddySkills">{{ studyBuddySkills }}</p>
+                </div>
+            </div>
+            <div class="flex space-x-4 mt-2">
+                <button class="bg-white text-black font-medium py-2 px-4 rounded-md" (click)="chatWithStudyBuddy()"
+                    *ngIf="studyBuddyName">Chat</button>
+                <button class="bg-white text-black font-medium py-2 px-4 rounded-md" *ngIf="studyBuddyName">Streak
+                    (38)</button>
+            </div>
+        </div>
+        <button class="bg-white text-black font-medium py-2 px-4 rounded-full"
+            (click)="removeStudyBuddy()">Remove</button>
+    </div>
+
+    <!-- Focus Analytics Banner -->
+    <div class="mt-8 bg-gray-950 p-6 rounded-md shadow-md w-3/4 mx-auto">
+        <div class="flex justify-between items-center">
+            <div class="flex space-x-6 p-6">
+                <div class="flex flex-col items-center">
+                    <p class="text-white text-5xl font-bold">3</p>
+                    <p class="text-gray-300 text-base">Hours Focused</p>
+                </div>
+                <div class="flex flex-col items-center">
+                    <p class="text-white text-5xl font-bold">5</p>
+                    <p class="text-gray-300 text-base">Total Sessions</p>
+                </div>
+            </div>
+            <button class="bg-white text-black font-medium py-2 px-4 rounded-full" (click)="navigateToFocus()">Focus
+                Now</button>
+        </div>
+    </div>
+
 </div>
