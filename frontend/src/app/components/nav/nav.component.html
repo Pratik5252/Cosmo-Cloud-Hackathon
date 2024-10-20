@@ -13,7 +13,7 @@
                 </button>
             </li>
             <li class="ml-4">
-                <button
+                <button *ngIf="!isLoggedIn"
                     class="flex justify-center items-center text-base bg-primary-bg text-secondary-text font-medium py-2 px-2 rounded-md"
                     (click)="isLoggedIn ? navigateToRoadmaps() : handleLogin()">Get Started
 
