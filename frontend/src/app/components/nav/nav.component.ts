@@ -27,6 +27,7 @@ export class NavComponent {
   isLoggedIn: boolean = false;
   scrolled = false;
   excludedPages = ['/profile'];
+  photoURL: string | null = null;
 
   constructor(
     public authService: AuthService,
@@ -36,7 +37,11 @@ export class NavComponent {
   ) {
     // Subscribe to the user observable to check authentication state
     this.authService.user$.subscribe((user) => {
+      console.log(user);
+
       this.isLoggedIn = !!user;
+      this.photoURL = user ? user.photoURL : null;
+      console.log(this.photoURL);
     });
   }
 

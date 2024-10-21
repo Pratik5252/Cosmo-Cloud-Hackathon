@@ -5,9 +5,9 @@
             <a href="/">Skillsphere</a>
         </div>
         <ul class="navbar-nav flex justify-center items-center ">
-            <li class="ml-8">
+            <li class="">
                 <button
-                    class="text-primary-text border border-stone-800 font-medium py-2 px-4 rounded-md hover:border-stone-700"
+                    class="text-primary-text border border-stone-800 font-medium py-2 px-6 rounded-md hover:border-stone-700"
                     (click)="isLoggedIn ? handleLogout() : handleLogin()">
                     {{ isLoggedIn ? 'Logout' : 'Login' }}
                 </button>
@@ -20,11 +20,11 @@
 
                 </button>
             </li>
-            <!-- <li class="nav-item ml-8" *ngIf="isLoggedIn">
-                <button (click)="navigateToProfile()">
-                    <img src="image" alt="User Profile Picture" class="w-10 h-10 rounded-full" />
+            <li class="nav-item ml-2" *ngIf="isLoggedIn">
+                <button (click)="navigateToProfile()" class="flex justify-center items-center">
+                    <img [src]="photoURL" alt="User Profile Picture" class="w-10 h-10 rounded-md" />
                 </button>
-            </li> -->
+            </li>
         </ul>
     </nav>
 </div>
